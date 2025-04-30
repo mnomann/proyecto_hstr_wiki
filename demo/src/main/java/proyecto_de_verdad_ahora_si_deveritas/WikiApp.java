@@ -4,17 +4,6 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.Arrays;
 
-interface Registro {
-    Object getValue(String col);
-    void setValue(String col, Object val);
-}
-
-interface RegistroFactory<T extends Registro> {
-    T fromResultSet(ResultSet rs) throws SQLException;
-    T createEmpty();
-}
-
-
 public class WikiApp extends JFrame {
     private Connection conn;
     private JTabbedPane tabs = new JTabbedPane();
