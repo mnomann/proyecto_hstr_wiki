@@ -53,6 +53,7 @@ public class WikiApp extends JFrame {
                 Arrays.asList("id", "nombre", "rareza", "nivel"),
                 new PersonajeFactory()
             ));
+
         tabs.addTab("Cono",
             new EntidadPanel<Cono>(
                 conn,
@@ -99,7 +100,7 @@ public class WikiApp extends JFrame {
             }
         });
             
-        
+       
     }
 
     public static void main(String[] args) {
