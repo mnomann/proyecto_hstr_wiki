@@ -45,11 +45,6 @@ public class WikiApp extends JFrame {
                 Arrays.asList("id", "nombre", "rareza", "nivel"),
                 new PersonajeFactory()
             ));
-        // … aquí repites para cada tabla de tu diagrama:
-        // tabs.addTab("Conos", new EntidadPanel<Cono>(conn, "cono",
-        //     Arrays.asList("id","nombre","rareza","nivel","material_xp_id"),
-        //     new ConoFactory()));
-        // etc.
     }
 
     public static void main(String[] args) {
