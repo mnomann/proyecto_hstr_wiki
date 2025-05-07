@@ -2,6 +2,9 @@ package proyecto_de_verdad_ahora_si_deveritas;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 
 import javax.swing.JFrame;
@@ -71,6 +74,30 @@ public class WikiApp extends JFrame {
                 Arrays.asList("id","nombre","rareza"),
                 new EquipamientoFactory()
             ));
+        tabs.addTab("Material Enemigo", new EntidadPanel<MaterialEnemigo>(
+            conn,
+            "material_enemigo",
+            Arrays.asList("id", "nombre", "enemigo_id", "enemigo"),
+            new MaterialEnemigoFactory()
+        ) {
+            @Override
+            protected void cargarTodos() {
+                model.clear();
+                String sql = """
+                    SELECT m.id, m.nombre, m.enemigo_id, e.nombre AS enemigo
+                    FROM material_enemigo m
+                    JOIN enemigo e ON m.enemigo_id = e.id
+                """;
+                try (Statement st = conn.createStatement();
+                    ResultSet rs = st.executeQuery(sql)) {
+                    while (rs.next()) {
+                        model.addElement(factory.fromResultSet(rs));
+                    }
+                } catch (SQLException ex) {
+                    mostrarError(ex);
+                }
+            }
+        });
             
         
     }

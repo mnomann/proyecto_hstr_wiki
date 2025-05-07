@@ -8,7 +8,7 @@ import java.util.List;
 
 /** Panel genérico CRUD para cualquier tabla */
 class EntidadPanel<T extends Registro> extends JPanel {
-    private final DefaultListModel<T> model = new DefaultListModel<>();
+    protected final DefaultListModel<T> model = new DefaultListModel<>();
     private final JList<T> list = new JList<>(model);
     private final JTextField[] fields;
     private final JButton btnNuevo = new JButton("Nuevo"),
@@ -16,7 +16,7 @@ class EntidadPanel<T extends Registro> extends JPanel {
                           btnEliminar= new JButton("Eliminar");
     private final String tabla;
     private final List<String> cols;
-    private final RegistroFactory<T> factory;
+    protected final RegistroFactory<T> factory;
     private final Connection conn;
 
     public EntidadPanel(Connection conn, String tabla, List<String> cols, RegistroFactory<T> factory) {
@@ -53,7 +53,7 @@ class EntidadPanel<T extends Registro> extends JPanel {
         inicializarListeners();
     }
 
-    private void cargarTodos() {
+    protected void cargarTodos() {
         model.clear();
         String sql = "SELECT " + String.join(",", cols) + " FROM " + tabla;
         try (Statement st = conn.createStatement();
@@ -159,7 +159,7 @@ class EntidadPanel<T extends Registro> extends JPanel {
         });
     }
 
-    private void mostrarError(Exception e) {
+    protected void mostrarError(Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this,
             e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
