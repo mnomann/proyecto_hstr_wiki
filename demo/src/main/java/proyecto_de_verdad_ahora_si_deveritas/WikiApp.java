@@ -57,13 +57,21 @@ public class WikiApp extends JFrame {
                 Arrays.asList("id","nombre","rareza","nivel"),
                 new ConoFactory()
             ));
-            tabs.addTab("Enemigo",
+        tabs.addTab("Enemigo",
             new EntidadPanel<Enemigo>(
                 conn,
                 "Enemigo",
                 Arrays.asList("id","nombre"),
                 new EnemigoFactory()
             ));
+        tabs.addTab("Equipamiento",
+            new EntidadPanel<Equipamiento>(
+                conn,
+                "Equipamiento",
+                Arrays.asList("id","nombre","rareza"),
+                new EquipamientoFactory()
+            ));
+            
         
     }
 
