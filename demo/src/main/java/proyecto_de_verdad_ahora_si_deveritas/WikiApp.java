@@ -1,8 +1,13 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
-import javax.swing.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Arrays;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 public class WikiApp extends JFrame {
     private Connection conn;
@@ -21,7 +26,7 @@ public class WikiApp extends JFrame {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             conn = DriverManager.getConnection(
-                "jdbc:mariadb://localhost:3306/proyecto_db", "root", "");
+                "jdbc:mariadb://localhost:3306/proyecto2", "root", "");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,
                 "Error de conexión:\n" + e.getMessage(),
@@ -32,7 +37,7 @@ public class WikiApp extends JFrame {
 
     private void inicializarPestañas() {
         tabs.addTab("Vías",
-            new EntidadPanel<Via>(
+            new EntidadPanel<>(
                 conn,
                 "via",
                 Arrays.asList("id", "nombre"),
@@ -45,11 +50,14 @@ public class WikiApp extends JFrame {
                 Arrays.asList("id", "nombre", "rareza", "nivel"),
                 new PersonajeFactory()
             ));
-        // … aquí repites para cada tabla de tu diagrama:
-        // tabs.addTab("Conos", new EntidadPanel<Cono>(conn, "cono",
-        //     Arrays.asList("id","nombre","rareza","nivel","material_xp_id"),
-        //     new ConoFactory()));
-        // etc.
+        tabs.addTab("Cono",
+            new EntidadPanel<Cono>(
+                conn,
+                "Cono",
+                Arrays.asList("id","nombre","rareza","nivel"),
+                new ConoFactory()
+            )); 
+        
     }
 
     public static void main(String[] args) {
@@ -58,3 +66,4 @@ public class WikiApp extends JFrame {
         );
     }
 }
+
