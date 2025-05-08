@@ -1,24 +1,61 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.sql.*;
 import java.util.List;
 
-/** Panel genérico CRUD para cualquier tabla */
+/**
+ * Panel genérico CRUD para cualquier tabla de base de datos.
+ * 
+ * <p>Esta clase implementa un panel de usuario que permite realizar operaciones
+ * básicas de Crear, Leer, Actualizar y Eliminar (CRUD) sobre una tabla
+ * de base de datos usando JDBC. Se basa en un modelo de datos genérico
+ * que extiende la interfaz {@code Registro} y se construye dinámicamente
+ * con los nombres de columnas y una fábrica de registros.
+ *
+ * @param <T> el tipo de registro que se mostrará y manipulará en este panel
+ */
 class EntidadPanel<T extends Registro> extends JPanel {
+
+    /** Modelo de lista que contiene los registros cargados desde la base de datos. */
     protected final DefaultListModel<T> model = new DefaultListModel<>();
+
+    /** Lista gráfica que muestra los registros. */
     private final JList<T> list = new JList<>(model);
+
+    /** Campos de entrada correspondientes a las columnas de la tabla. */
     private final JTextField[] fields;
-    private final JButton btnNuevo = new JButton("Nuevo"),
-                          btnGuardar = new JButton("Guardar"),
-                          btnEliminar= new JButton("Eliminar");
+
+    /** Botón para crear un nuevo registro. */
+    private final JButton btnNuevo = new JButton("Nuevo");
+
+    /** Botón para guardar (actualizar) un registro existente. */
+    private final JButton btnGuardar = new JButton("Guardar");
+
+    /** Botón para eliminar un registro seleccionado. */
+    private final JButton btnEliminar = new JButton("Eliminar");
+
+    /** Nombre de la tabla asociada en la base de datos. */
     private final String tabla;
+
+    /** Lista con los nombres de las columnas de la tabla. */
     private final List<String> cols;
+
+    /** Fábrica para construir instancias de registros genéricos. */
     protected final RegistroFactory<T> factory;
+
+    /** Conexión JDBC a la base de datos. */
     private final Connection conn;
 
+    /**
+     * Crea un nuevo panel de entidad para manipular una tabla dada.
+     *
+     * @param conn conexión activa a la base de datos
+     * @param tabla nombre de la tabla
+     * @param cols lista con los nombres de las columnas de la tabla
+     * @param factory fábrica de registros para crear instancias desde {@code ResultSet}
+     */
     public EntidadPanel(Connection conn, String tabla, List<String> cols, RegistroFactory<T> factory) {
         super(new BorderLayout());
         this.conn = conn;
@@ -26,13 +63,13 @@ class EntidadPanel<T extends Registro> extends JPanel {
         this.cols  = cols;
         this.factory = factory;
 
-        // Formulario dinámico
+        // Crear formulario dinámico
         JPanel form = new JPanel(new GridLayout(cols.size(), 2, 5, 5));
         fields = new JTextField[cols.size()];
         for (int i = 0; i < cols.size(); i++) {
             form.add(new JLabel(cols.get(i)));
             fields[i] = new JTextField();
-            // campo 0 (id o llave compuesta) no editable
+            // El campo ID (índice 0) no es editable
             fields[i].setEnabled(i != 0);
             form.add(fields[i]);
         }
@@ -53,6 +90,9 @@ class EntidadPanel<T extends Registro> extends JPanel {
         inicializarListeners();
     }
 
+    /**
+     * Carga todos los registros desde la tabla en la base de datos y los muestra en la lista.
+     */
     protected void cargarTodos() {
         model.clear();
         String sql = "SELECT " + String.join(",", cols) + " FROM " + tabla;
@@ -66,6 +106,10 @@ class EntidadPanel<T extends Registro> extends JPanel {
         }
     }
 
+    /**
+     * Inicializa los listeners para los botones y la lista de selección.
+     * Controla las acciones de selección, inserción, actualización y eliminación.
+     */
     private void inicializarListeners() {
         list.addListSelectionListener(e -> {
             if (e.getValueIsAdjusting()) return;
@@ -80,11 +124,12 @@ class EntidadPanel<T extends Registro> extends JPanel {
         btnGuardar.addActionListener(e -> {
             T r = list.getSelectedValue();
             if (r == null) return;
-            // Actualizar objeto
+            // Actualizar valores en el objeto
             for (int i = 1; i < cols.size(); i++) {
                 r.setValue(cols.get(i), fields[i].getText());
             }
-            // Construir UPDATE
+
+            // Construir sentencia UPDATE
             StringBuilder setC = new StringBuilder();
             for (int i = 1; i < cols.size(); i++) {
                 if (i > 1) setC.append(",");
@@ -113,7 +158,8 @@ class EntidadPanel<T extends Registro> extends JPanel {
                 if (val == null) return;
                 r.setValue(cols.get(i), val);
             }
-            // Construir INSERT
+
+            // Construir sentencia INSERT
             StringBuilder colNames = new StringBuilder();
             StringBuilder ph = new StringBuilder();
             for (int i = 1; i < cols.size(); i++) {
@@ -159,6 +205,11 @@ class EntidadPanel<T extends Registro> extends JPanel {
         });
     }
 
+    /**
+     * Muestra un mensaje de error al usuario en caso de excepción.
+     *
+     * @param e la excepción lanzada
+     */
     protected void mostrarError(Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this,
