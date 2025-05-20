@@ -12,10 +12,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 
+/**
+ * La clase {@code WikiApp} representa una aplicación gráfica de escritorio
+ * que actúa como cliente para consultar y editar registros en una base de datos MariaDB.
+ * <p>
+ * Esta interfaz permite visualizar y editar distintas entidades como Vías, Personajes,
+ * Conos, Enemigos, Equipamiento y Material de Enemigo usando pestañas.
+ * </p>
+ * 
+ * Extiende {@link JFrame} para proporcionar una ventana principal con interfaz gráfica.
+ */
 public class WikiApp extends JFrame {
+
+    /** Conexión a la base de datos. */
     private Connection conn;
+
+    /** Contenedor de pestañas para las diferentes entidades. */
     private JTabbedPane tabs = new JTabbedPane();
 
+    /**
+     * Constructor principal de la aplicación. 
+     * Inicializa la ventana, se conecta a la base de datos e inicializa las pestañas.
+     */
     public WikiApp() {
         super("HSR Wiki DB Client");
         setSize(800, 600);
@@ -25,6 +43,12 @@ public class WikiApp extends JFrame {
         add(tabs);
     }
 
+    /**
+     * Establece la conexión con la base de datos MariaDB.
+     * <p>
+     * En caso de error al conectar, muestra un mensaje y termina la ejecución.
+     * </p>
+     */
     private void conectarBD() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
@@ -38,6 +62,13 @@ public class WikiApp extends JFrame {
         }
     }
 
+    /**
+     * Inicializa las pestañas correspondientes a cada entidad de la base de datos.
+     * <p>
+     * Crea una instancia de {@link EntidadPanel} para cada tabla y la añade al
+     * contenedor de pestañas.
+     * </p>
+     */
     private void inicializarPestañas() {
         tabs.addTab("Vías",
             new EntidadPanel<>(
@@ -46,8 +77,9 @@ public class WikiApp extends JFrame {
                 Arrays.asList("id", "nombre"),
                 new ViaFactory()
             ));
+
         tabs.addTab("Personajes",
-            new EntidadPanel<Personaje>(
+            new EntidadPanel<>(
                 conn,
                 "personaje",
                 Arrays.asList("id", "nombre", "rareza", "nivel"),
@@ -55,32 +87,39 @@ public class WikiApp extends JFrame {
             ));
 
         tabs.addTab("Cono",
-            new EntidadPanel<Cono>(
+            new EntidadPanel<>(
                 conn,
                 "Cono",
-                Arrays.asList("id","nombre","rareza","nivel"),
+                Arrays.asList("id", "nombre", "rareza", "nivel"),
                 new ConoFactory()
             ));
+
         tabs.addTab("Enemigo",
-            new EntidadPanel<Enemigo>(
+            new EntidadPanel<>(
                 conn,
                 "Enemigo",
-                Arrays.asList("id","nombre"),
+                Arrays.asList("id", "nombre"),
                 new EnemigoFactory()
             ));
+
         tabs.addTab("Equipamiento",
-            new EntidadPanel<Equipamiento>(
+            new EntidadPanel<>(
                 conn,
                 "Equipamiento",
-                Arrays.asList("id","nombre","rareza"),
+                Arrays.asList("id", "nombre", "rareza"),
                 new EquipamientoFactory()
             ));
+
+        // Pestaña personalizada para Material Enemigo con JOIN
         tabs.addTab("Material Enemigo", new EntidadPanel<MaterialEnemigo>(
             conn,
             "material_enemigo",
             Arrays.asList("id", "nombre", "enemigo_id", "enemigo"),
             new MaterialEnemigoFactory()
         ) {
+            /**
+             * Carga todos los registros de materiales enemigos, incluyendo el nombre del enemigo relacionado.
+             */
             @Override
             protected void cargarTodos() {
                 model.clear();
@@ -90,7 +129,7 @@ public class WikiApp extends JFrame {
                     JOIN enemigo e ON m.enemigo_id = e.id
                 """;
                 try (Statement st = conn.createStatement();
-                    ResultSet rs = st.executeQuery(sql)) {
+                     ResultSet rs = st.executeQuery(sql)) {
                     while (rs.next()) {
                         model.addElement(factory.fromResultSet(rs));
                     }
@@ -99,14 +138,19 @@ public class WikiApp extends JFrame {
                 }
             }
         });
-            
-       
     }
 
+    /**
+     * Punto de entrada de la aplicación.
+     * Lanza la interfaz gráfica en el hilo de eventos de Swing.
+     *
+     * @param args argumentos de la línea de comandos (no se usan)
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() ->
             new WikiApp().setVisible(true)
         );
     }
 }
+
 
