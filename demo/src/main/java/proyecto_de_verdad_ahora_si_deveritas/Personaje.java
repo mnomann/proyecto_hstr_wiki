@@ -1,12 +1,52 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
+/**
+ * Representa un personaje dentro del sistema, implementando la interfaz {@link Registro}.
+ *
+ * <p>Incluye atributos como ID, nombre, rareza y nivel. Es utilizada en operaciones CRUD
+ * genéricas mediante paneles dinámicos en la interfaz gráfica.
+ */
 class Personaje implements Registro {
-    int id, rareza, nivel; String nombre;
+
+    /** Identificador único del personaje. */
+    int id;
+
+    /** Rareza del personaje (por ejemplo, 1 a 5 estrellas). */
+    int rareza;
+
+    /** Nivel actual del personaje. */
+    int nivel;
+
+    /** Nombre del personaje. */
+    String nombre;
+
+    /**
+     * Constructor por defecto. Utilizado en instancias vacías o dinámicas.
+     */
     Personaje() {}
+
+    /**
+     * Constructor completo que inicializa todos los campos del personaje.
+     *
+     * @param id identificador del personaje
+     * @param nombre nombre del personaje
+     * @param rareza rareza del personaje
+     * @param nivel nivel del personaje
+     */
     Personaje(int id, String nombre, int rareza, int nivel) {
-        this.id = id; this.nombre = nombre;
-        this.rareza = rareza; this.nivel = nivel;
+        this.id = id;
+        this.nombre = nombre;
+        this.rareza = rareza;
+        this.nivel = nivel;
     }
+
+    /**
+     * Obtiene el valor de un campo del personaje por nombre.
+     *
+     * @param c nombre del campo ("id", "nombre", "rareza", "nivel")
+     * @return el valor correspondiente o {@code null} si no existe
+     */
+    @Override
     public Object getValue(String c) {
         if ("id".equals(c)) return id;
         if ("nombre".equals(c)) return nombre;
@@ -14,10 +54,29 @@ class Personaje implements Registro {
         if ("nivel".equals(c)) return nivel;
         return null;
     }
+
+    /**
+     * Asigna un nuevo valor a uno de los campos editables del personaje.
+     *
+     * <p>Solo se pueden modificar {@code nombre}, {@code rareza} y {@code nivel}.
+     *
+     * @param c nombre del campo a modificar
+     * @param v nuevo valor
+     */
+    @Override
     public void setValue(String c, Object v) {
         if ("nombre".equals(c)) nombre = v.toString();
         else if ("rareza".equals(c)) rareza = Integer.parseInt(v.toString());
         else if ("nivel".equals(c)) nivel = Integer.parseInt(v.toString());
     }
-    public String toString() { return nombre; }
+
+    /**
+     * Representación en texto del personaje, generalmente para uso en listas.
+     *
+     * @return el nombre del personaje
+     */
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
