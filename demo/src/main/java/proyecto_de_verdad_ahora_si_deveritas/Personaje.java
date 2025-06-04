@@ -6,7 +6,7 @@ package proyecto_de_verdad_ahora_si_deveritas;
  * <p>Incluye atributos como ID, nombre, rareza y nivel. Es utilizada en operaciones CRUD
  * genéricas mediante paneles dinámicos en la interfaz gráfica.
  */
-class Personaje implements Registro {
+public class Personaje implements Registro {
 
     /** Identificador único del personaje. */
     int id;
@@ -23,7 +23,7 @@ class Personaje implements Registro {
     /**
      * Constructor por defecto. Utilizado en instancias vacías o dinámicas.
      */
-    Personaje() {}
+    public Personaje() {}
 
     /**
      * Constructor completo que inicializa todos los campos del personaje.
@@ -33,7 +33,7 @@ class Personaje implements Registro {
      * @param rareza rareza del personaje
      * @param nivel nivel del personaje
      */
-    Personaje(int id, String nombre, int rareza, int nivel) {
+    public Personaje(int id, String nombre, int rareza, int nivel) {
         this.id = id;
         this.nombre = nombre;
         this.rareza = rareza;
@@ -48,11 +48,13 @@ class Personaje implements Registro {
      */
     @Override
     public Object getValue(String c) {
-        if ("id".equals(c)) return id;
-        if ("nombre".equals(c)) return nombre;
-        if ("rareza".equals(c)) return rareza;
-        if ("nivel".equals(c)) return nivel;
-        return null;
+        return switch (c) {
+            case "id" -> id;
+            case "nombre" -> nombre;
+            case "rareza" -> rareza;
+            case "nivel" -> nivel;
+            default -> null;
+        };
     }
 
     /**
@@ -65,9 +67,11 @@ class Personaje implements Registro {
      */
     @Override
     public void setValue(String c, Object v) {
-        if ("nombre".equals(c)) nombre = v.toString();
-        else if ("rareza".equals(c)) rareza = Integer.parseInt(v.toString());
-        else if ("nivel".equals(c)) nivel = Integer.parseInt(v.toString());
+        switch (c) {
+            case "nombre" -> nombre = v.toString();
+            case "rareza" -> rareza = Integer.parseInt(v.toString());
+            case "nivel" -> nivel = Integer.parseInt(v.toString());
+        }
     }
 
     /**
@@ -78,5 +82,9 @@ class Personaje implements Registro {
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public void setId(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
