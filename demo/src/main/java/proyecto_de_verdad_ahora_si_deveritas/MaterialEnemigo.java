@@ -6,7 +6,7 @@ package proyecto_de_verdad_ahora_si_deveritas;
  * <p>Incluye información como el identificador del material, su nombre, el ID del enemigo del que proviene
  * y el nombre de dicho enemigo. Se utiliza comúnmente para operaciones CRUD dentro del sistema.
  */
-class MaterialEnemigo implements Registro {
+public class MaterialEnemigo implements Registro {
 
     /** Identificador único del material. */
     int id;
@@ -23,7 +23,7 @@ class MaterialEnemigo implements Registro {
     /**
      * Constructor por defecto. Requerido para instanciación mediante fábricas.
      */
-    MaterialEnemigo() {}
+    public MaterialEnemigo() {}
 
     /**
      * Crea una instancia completa de {@code MaterialEnemigo} con los datos especificados.
@@ -33,7 +33,7 @@ class MaterialEnemigo implements Registro {
      * @param enemigo_id identificador del enemigo
      * @param enemigo nombre del enemigo
      */
-    MaterialEnemigo(int id, String nombre, int enemigo_id, String enemigo) {
+    public MaterialEnemigo(int id, String nombre, int enemigo_id, String enemigo) {
         this.id = id;
         this.nombre = nombre;
         this.enemigo_id = enemigo_id;
@@ -81,5 +81,9 @@ class MaterialEnemigo implements Registro {
     @Override
     public String toString() {
         return nombre + " (" + enemigo + ")";
+    }
+
+    public void setId(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
