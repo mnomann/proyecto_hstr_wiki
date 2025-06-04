@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  * @param <T> el tipo concreto que implementa {@link Registro}
  */
-interface RegistroFactory<T extends Registro> {
+public interface RegistroFactory<T extends Registro> {
 
     /**
      * Crea una instancia del registro a partir de un resultado de consulta SQL.

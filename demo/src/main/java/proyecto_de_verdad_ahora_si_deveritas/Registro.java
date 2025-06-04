@@ -3,14 +3,14 @@ package proyecto_de_verdad_ahora_si_deveritas;
 /**
  * Interfaz que representa un registro genérico con acceso dinámico a sus propiedades.
  *
- * <p>Esta interfaz permite trabajar de forma abstracta con distintas entidades del sistema
- * (como personajes, materiales o equipamiento), permitiendo la lectura y escritura de
- * valores mediante el nombre de la columna.
+ * <p>Permite trabajar de forma abstracta con distintas entidades del sistema
+ * (como personajes, materiales o equipamiento), facilitando la lectura y escritura de
+ * valores mediante el nombre del campo.
  *
  * <p>Es especialmente útil en componentes genéricos como {@code EntidadPanel} que pueden
- * manejar cualquier tipo de registro sin conocer su estructura concreta.
+ * operar sobre cualquier tipo de entidad sin conocer su estructura exacta.
  */
-interface Registro {
+public interface Registro {
 
     /**
      * Obtiene el valor de un campo del registro dado su nombre.
