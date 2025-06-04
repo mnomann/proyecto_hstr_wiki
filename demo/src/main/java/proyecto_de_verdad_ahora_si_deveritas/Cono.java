@@ -1,46 +1,34 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 /**
  * La clase {@code Cono} representa un objeto con atributos identificadores, nombre, rareza y nivel.
- * Implementa la interfaz {@code Registro}, permitiendo obtener y modificar valores de atributos
- * mediante nombres de campos como cadena de texto.
- * 
- * <p>Es utilizada principalmente como estructura de datos flexible en la que los atributos
- * pueden ser accedidos dinámicamente por nombre, facilitando su manipulación en interfaces genéricas.</p>
- * 
+ * Se ha adaptado como entidad JPA para persistencia en base de datos.
  */
-class Cono implements Registro {
+@Entity
+@Table(name = "conos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Cono implements Registro {
+
     /** Identificador único del objeto */
-    int id;
-
-    /** Rareza del objeto, representada como un número entero */
-    int rareza;
-
-    /** Nivel del objeto */
-    int nivel;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     /** Nombre del objeto */
-    String nombre;
+    private String nombre;
 
-    /**
-     * Constructor por defecto. Crea una instancia vacía de {@code Cono}.
-     */
-    Cono() {}
+    /** Rareza del objeto, representada como un número entero */
+    private int rareza;
 
-    /**
-     * Constructor con parámetros. Crea una instancia de {@code Cono} con valores iniciales.
-     * 
-     * @param id      Identificador único del objeto
-     * @param nombre  Nombre del objeto
-     * @param rareza  Rareza del objeto (entero)
-     * @param nivel   Nivel del objeto (entero)
-     */
-    Cono(int id, String nombre, int rareza, int nivel) {
-        this.id = id;
-        this.nombre = nombre;
-        this.rareza = rareza;
-        this.nivel = nivel;
-    }
+    /** Nivel del objeto */
+    private int nivel;
 
     /**
      * Obtiene el valor del atributo especificado por nombre.
@@ -49,11 +37,13 @@ class Cono implements Registro {
      * @return El valor correspondiente del atributo, o {@code null} si no existe
      */
     public Object getValue(String c) {
-        if ("id".equals(c)) return id;
-        if ("nombre".equals(c)) return nombre;
-        if ("rareza".equals(c)) return rareza;
-        if ("nivel".equals(c)) return nivel;
-        return null;
+        return switch (c) {
+            case "id" -> id;
+            case "nombre" -> nombre;
+            case "rareza" -> rareza;
+            case "nivel" -> nivel;
+            default -> null;
+        };
     }
 
     /**
@@ -64,18 +54,11 @@ class Cono implements Registro {
      * @param v Valor a establecer
      */
     public void setValue(String c, Object v) {
-        if ("nombre".equals(c)) nombre = v.toString();
-        else if ("rareza".equals(c)) rareza = Integer.parseInt(v.toString());
-        else if ("nivel".equals(c)) nivel = Integer.parseInt(v.toString());
-    }
-
-    /**
-     * Retorna una representación textual del objeto, en este caso, su nombre.
-     * 
-     * @return El nombre del objeto
-     */
-    public String toString() {
-        return nombre;
+        switch (c) {
+            case "nombre" -> nombre = v.toString();
+            case "rareza" -> rareza = Integer.parseInt(v.toString());
+            case "nivel" -> nivel = Integer.parseInt(v.toString());
+        }
     }
 }
 
