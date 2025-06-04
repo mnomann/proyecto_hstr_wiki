@@ -5,22 +5,24 @@ package proyecto_de_verdad_ahora_si_deveritas;
  *
  * <p>Contiene información básica como identificador, nombre y rareza.
  * Es utilizado como modelo de datos para operaciones CRUD genéricas en la interfaz.
+ * </p>
+ * 
  */
 public class Equipamiento implements Registro {
 
     /** Identificador único del equipamiento. */
-    int id;
+    private int id;
 
     /** Nombre del equipamiento. */
-    String nombre;
+    private String nombre;
 
     /** Nivel de rareza del equipamiento. */
-    int rareza;
+    private int rareza;
 
     /**
      * Constructor por defecto. Necesario para la creación mediante reflexión o fábrica.
      */
-    Equipamiento() {}
+    public Equipamiento() {}
 
     /**
      * Crea un nuevo objeto {@code Equipamiento} con los valores especificados.
@@ -29,7 +31,7 @@ public class Equipamiento implements Registro {
      * @param nombre nombre del equipamiento
      * @param rareza nivel de rareza del equipamiento
      */
-    Equipamiento(int id, String nombre, int rareza) {
+    public Equipamiento(int id, String nombre, int rareza) {
         this.id = id;
         this.nombre = nombre;
         this.rareza = rareza;
@@ -43,24 +45,33 @@ public class Equipamiento implements Registro {
      */
     @Override
     public Object getValue(String c) {
-        if ("id".equals(c)) return id;
-        if ("nombre".equals(c)) return nombre;
-        if ("rareza".equals(c)) return rareza;
-        return null;
+        switch (c) {
+            case "id": return id;
+            case "nombre": return nombre;
+            case "rareza": return rareza;
+            default: return null;
+        }
     }
 
     /**
      * Asigna un valor a un atributo específico del equipamiento.
      *
-     * <p>Este método no permite modificar el campo {@code id}.
+     * <p>Este método no permite modificar el campo {@code id}.</p>
      *
      * @param c nombre del atributo a modificar ("nombre", "rareza")
      * @param v nuevo valor del atributo (como {@code Object})
      */
     @Override
     public void setValue(String c, Object v) {
-        if ("nombre".equals(c)) nombre = v.toString();
-        else if ("rareza".equals(c)) rareza = Integer.parseInt(v.toString());
+        switch (c) {
+            case "nombre":
+                this.nombre = v.toString();
+                break;
+            case "rareza":
+                this.rareza = Integer.parseInt(v.toString());
+                break;
+            // no permitir modificar el ID
+        }
     }
 
     /**
@@ -71,5 +82,9 @@ public class Equipamiento implements Registro {
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public void setId(int id) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

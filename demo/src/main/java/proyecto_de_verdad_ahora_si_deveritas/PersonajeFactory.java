@@ -3,6 +3,8 @@ package proyecto_de_verdad_ahora_si_deveritas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Fábrica de objetos {@link Personaje}, utilizada para crear instancias a partir de un
  * {@link ResultSet} o generar personajes vacíos.
@@ -10,7 +12,8 @@ import java.sql.SQLException;
  * <p>Implementa la interfaz genérica {@code RegistroFactory<Personaje>} para su integración
  * con componentes de interfaz gráfica y mecanismos CRUD genéricos.
  */
-class PersonajeFactory implements RegistroFactory<Personaje> {
+@Component
+public class PersonajeFactory implements RegistroFactory<Personaje> {
 
     /**
      * Crea una instancia de {@code Personaje} a partir de los datos de un {@code ResultSet}.

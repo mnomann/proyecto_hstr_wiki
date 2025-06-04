@@ -3,6 +3,8 @@ package proyecto_de_verdad_ahora_si_deveritas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Fábrica para crear instancias de {@link Equipamiento} a partir de un {@link ResultSet}
  * o desde cero.
@@ -11,6 +13,7 @@ import java.sql.SQLException;
  * la creación de objetos {@code Equipamiento} tanto desde resultados de consulta SQL
  * como vacíos para inserciones nuevas.
  */
+@Component
 public class EquipamientoFactory implements RegistroFactory<Equipamiento> {
 
     /**
@@ -25,11 +28,10 @@ public class EquipamientoFactory implements RegistroFactory<Equipamiento> {
      */
     @Override
     public Equipamiento fromResultSet(ResultSet rs) throws SQLException {
-        return new Equipamiento(
-            rs.getInt("id"),
-            rs.getString("nombre"),
-            rs.getInt("rareza")
-        );
+        int id = rs.getInt("id");
+        String nombre = rs.getString("nombre");
+        int rareza = rs.getInt("rareza");
+        return new Equipamiento(id, nombre, rareza);
     }
 
     /**

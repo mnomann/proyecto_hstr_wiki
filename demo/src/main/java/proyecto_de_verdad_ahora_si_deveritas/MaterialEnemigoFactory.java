@@ -3,6 +3,8 @@ package proyecto_de_verdad_ahora_si_deveritas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Fábrica para crear instancias de {@link MaterialEnemigo} a partir de un {@link ResultSet}
  * o desde cero.
@@ -10,7 +12,8 @@ import java.sql.SQLException;
  * <p>Implementa la interfaz {@code RegistroFactory<MaterialEnemigo>} para permitir la
  * integración con paneles CRUD genéricos en la interfaz gráfica.
  */
-class MaterialEnemigoFactory implements RegistroFactory<MaterialEnemigo> {
+@Component
+public class MaterialEnemigoFactory implements RegistroFactory<MaterialEnemigo> {
 
     /**
      * Crea una instancia de {@code MaterialEnemigo} a partir de un {@code ResultSet}.
