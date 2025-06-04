@@ -19,7 +19,8 @@ Este proyecto fue desarrollado como parte de una asignatura académica, aplicand
 
 A continuación se presenta el diagrama de casos de uso del sistema HSR-Wiki:
 
-![casos de uso Proyecto](https://github.com/user-attachments/assets/75d88694-0c59-4dfa-881d-dc6e13dfc26b)
+![Diagrama Casos de Uso](https://github.com/user-attachments/assets/ee542b27-12b3-4d69-85f2-4a03f04c4550)
+
 
 ---
 
