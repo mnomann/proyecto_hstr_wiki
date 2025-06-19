@@ -1,5 +1,11 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
+package proyecto_de_verdad_ahora_si_deveritas;
+
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 /**
  * Representa un material que se obtiene de un enemigo, implementando la interfaz {@link Registro}.
  *
@@ -8,37 +14,31 @@ package proyecto_de_verdad_ahora_si_deveritas;
  */
 public class MaterialEnemigo implements Registro {
 
-    /** Identificador único del material. */
     int id;
-
-    /** Identificador del enemigo asociado al material. */
     int enemigo_id;
-
-    /** Nombre del material. */
     String nombre;
-
-    /** Nombre del enemigo del que se obtiene el material. */
     String enemigo;
 
-    /**
-     * Constructor por defecto. Requerido para instanciación mediante fábricas.
-     */
     public MaterialEnemigo() {}
 
-    /**
-     * Crea una instancia completa de {@code MaterialEnemigo} con los datos especificados.
-     *
-     * @param id identificador del material
-     * @param nombre nombre del material
-     * @param enemigo_id identificador del enemigo
-     * @param enemigo nombre del enemigo
-     */
     public MaterialEnemigo(int id, String nombre, int enemigo_id, String enemigo) {
         this.id = id;
         this.nombre = nombre;
         this.enemigo_id = enemigo_id;
         this.enemigo = enemigo;
     }
+
+    private static final Map<String, Function<MaterialEnemigo, Object>> getters = Map.of(
+        "id", MaterialEnemigo::getId,
+        "nombre", MaterialEnemigo::getNombre,
+        "enemigo_id", MaterialEnemigo::getEnemigoId,
+        "enemigo", MaterialEnemigo::getEnemigo
+    );
+
+    private static final Map<String, BiConsumer<MaterialEnemigo, Object>> setters = Map.of(
+        "nombre", (m, v) -> m.setNombre(v.toString()),
+        "enemigo_id", (m, v) -> m.setEnemigoId(Integer.parseInt(v.toString()))
+    );
 
     /**
      * Devuelve el valor de uno de los atributos del material, dado su nombre.
@@ -48,13 +48,7 @@ public class MaterialEnemigo implements Registro {
      */
     @Override
     public Object getValue(String c) {
-        return switch (c) {
-            case "id" -> id;
-            case "nombre" -> nombre;
-            case "enemigo_id" -> enemigo_id;
-            case "enemigo" -> enemigo;
-            default -> null;
-        };
+        return getters.getOrDefault(c, k -> null).apply(this);
     }
 
     /**
@@ -67,20 +61,38 @@ public class MaterialEnemigo implements Registro {
      */
     @Override
     public void setValue(String c, Object v) {
-        switch (c) {
-            case "nombre" -> nombre = v.toString();
-            case "enemigo_id" -> enemigo_id = Integer.parseInt(v.toString());
+        if (setters.containsKey(c)) {
+            setters.get(c).accept(this, v);
         }
     }
 
-    /**
-     * Devuelve una representación en texto del material.
-     *
-     * @return una cadena con el nombre del material seguido del nombre del enemigo entre paréntesis
-     */
     @Override
     public String toString() {
         return nombre + " (" + enemigo + ")";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getEnemigoId() {
+        return enemigo_id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getEnemigo() {
+        return enemigo;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEnemigoId(int enemigo_id) {
+        this.enemigo_id = enemigo_id;
     }
 
     public void setId(int id) {
