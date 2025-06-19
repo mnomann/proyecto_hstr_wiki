@@ -10,32 +10,28 @@ package proyecto_de_verdad_ahora_si_deveritas;
  */
 public class Equipamiento implements Registro {
 
-    /** Identificador único del equipamiento. */
     private int id;
-
-    /** Nombre del equipamiento. */
     private String nombre;
-
-    /** Nivel de rareza del equipamiento. */
     private int rareza;
 
-    /**
-     * Constructor por defecto. Necesario para la creación mediante reflexión o fábrica.
-     */
     public Equipamiento() {}
 
-    /**
-     * Crea un nuevo objeto {@code Equipamiento} con los valores especificados.
-     *
-     * @param id identificador único
-     * @param nombre nombre del equipamiento
-     * @param rareza nivel de rareza del equipamiento
-     */
     public Equipamiento(int id, String nombre, int rareza) {
         this.id = id;
         this.nombre = nombre;
         this.rareza = rareza;
     }
+
+    private static final Map<String, Function<Equipamiento, Object>> getters = Map.of(
+        "id", Equipamiento::getId,
+        "nombre", Equipamiento::getNombre,
+        "rareza", Equipamiento::getRareza
+    );
+
+    private static final Map<String, BiConsumer<Equipamiento, Object>> setters = Map.of(
+        "nombre", (e, v) -> e.setNombre(v.toString()),
+        "rareza", (e, v) -> e.setRareza(Integer.parseInt(v.toString()))
+    );
 
     /**
      * Retorna el valor de un atributo dado su nombre como cadena.
@@ -45,46 +41,8 @@ public class Equipamiento implements Registro {
      */
     @Override
     public Object getValue(String c) {
-        switch (c) {
-            case "id": return id;
-            case "nombre": return nombre;
-            case "rareza": return rareza;
-            default: return null;
-        }
+        return getters.getOrDefault(c, k -> null).apply(this);
     }
 
     /**
-     * Asigna un valor a un atributo específico del equipamiento.
-     *
-     * <p>Este método no permite modificar el campo {@code id}.</p>
-     *
-     * @param c nombre del atributo a modificar ("nombre", "rareza")
-     * @param v nuevo valor del atributo (como {@code Object})
-     */
-    @Override
-    public void setValue(String c, Object v) {
-        switch (c) {
-            case "nombre":
-                this.nombre = v.toString();
-                break;
-            case "rareza":
-                this.rareza = Integer.parseInt(v.toString());
-                break;
-            // no permitir modificar el ID
-        }
-    }
-
-    /**
-     * Representación en forma de cadena del equipamiento.
-     *
-     * @return el nombre del equipamiento
-     */
-    @Override
-    public String toString() {
-        return nombre;
-    }
-
-    public void setId(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-}
+     * Asigna un valor*
