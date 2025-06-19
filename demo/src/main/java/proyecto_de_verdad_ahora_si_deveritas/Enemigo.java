@@ -3,6 +3,10 @@ package proyecto_de_verdad_ahora_si_deveritas;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 /**
  * La clase {@code Enemigo} representa una entidad enemiga con atributos como
  * identificador, nombre, nivel y tipo. Adaptada como entidad JPA para persistencia en base de datos.
@@ -16,21 +20,13 @@ import lombok.*;
 @ToString
 public class Enemigo implements Registro {
 
-    /** Identificador único del enemigo */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    /** Nivel del enemigo */
     private int nivel;
-
-    /** Identificador del tipo de enemigo (referencia externa opcional) */
     private int tipoEnemigoId;
-
-    /** Nombre del enemigo */
     private String nombre;
-
-    /** Nombre del tipo de enemigo (por ejemplo: "Barion", "Engendro Escarchado", etc.) */
     private String tipoNombre;
 
     /**
@@ -41,19 +37,28 @@ public class Enemigo implements Registro {
         this.nombre = nombre;
     }
 
+    private static final Map<String, Function<Enemigo, Object>> getters = Map.of(
+        "id", Enemigo::getId,
+        "nombre", Enemigo::getNombre,
+        "nivel", Enemigo::getNivel,
+        "tipoEnemigoId", Enemigo::getTipoEnemigoId,
+        "tipoNombre", Enemigo::getTipoNombre
+    );
+
+    private static final Map<String, BiConsumer<Enemigo, Object>> setters = Map.of(
+        "nombre", (e, v) -> e.setNombre(v.toString())
+        // solo se permite modificar "nombre" por ahora
+    );
+
     /**
      * Obtiene dinámicamente el valor de un atributo.
      *
-     * @param c nombre del campo ("id", "nombre")
+     * @param c nombre del campo ("id", "nombre", "nivel", etc.)
      * @return valor correspondiente o null si no se encuentra
      */
     @Override
     public Object getValue(String c) {
-        return switch (c) {
-            case "id" -> id;
-            case "nombre" -> nombre;
-            default -> null;
-        };
+        return getters.getOrDefault(c, k -> null).apply(this);
     }
 
     /**
@@ -65,8 +70,8 @@ public class Enemigo implements Registro {
      */
     @Override
     public void setValue(String c, Object v) {
-        if ("nombre".equals(c)) {
-            nombre = v.toString();
+        if (setters.containsKey(c)) {
+            setters.get(c).accept(this, v);
         }
     }
 
@@ -78,4 +83,3 @@ public class Enemigo implements Registro {
         return nombre + " (" + tipoNombre + ")";
     }
 }
-
