@@ -5,35 +5,33 @@ package proyecto_de_verdad_ahora_si_deveritas;
  *
  * <p>Contiene información básica como identificador, nombre y rareza.
  * Es utilizado como modelo de datos para operaciones CRUD genéricas en la interfaz.
+ * </p>
+ * 
  */
 public class Equipamiento implements Registro {
 
-    /** Identificador único del equipamiento. */
-    int id;
+    private int id;
+    private String nombre;
+    private int rareza;
 
-    /** Nombre del equipamiento. */
-    String nombre;
+    public Equipamiento() {}
 
-    /** Nivel de rareza del equipamiento. */
-    int rareza;
-
-    /**
-     * Constructor por defecto. Necesario para la creación mediante reflexión o fábrica.
-     */
-    Equipamiento() {}
-
-    /**
-     * Crea un nuevo objeto {@code Equipamiento} con los valores especificados.
-     *
-     * @param id identificador único
-     * @param nombre nombre del equipamiento
-     * @param rareza nivel de rareza del equipamiento
-     */
-    Equipamiento(int id, String nombre, int rareza) {
+    public Equipamiento(int id, String nombre, int rareza) {
         this.id = id;
         this.nombre = nombre;
         this.rareza = rareza;
     }
+
+    private static final Map<String, Function<Equipamiento, Object>> getters = Map.of(
+        "id", Equipamiento::getId,
+        "nombre", Equipamiento::getNombre,
+        "rareza", Equipamiento::getRareza
+    );
+
+    private static final Map<String, BiConsumer<Equipamiento, Object>> setters = Map.of(
+        "nombre", (e, v) -> e.setNombre(v.toString()),
+        "rareza", (e, v) -> e.setRareza(Integer.parseInt(v.toString()))
+    );
 
     /**
      * Retorna el valor de un atributo dado su nombre como cadena.
@@ -43,33 +41,8 @@ public class Equipamiento implements Registro {
      */
     @Override
     public Object getValue(String c) {
-        if ("id".equals(c)) return id;
-        if ("nombre".equals(c)) return nombre;
-        if ("rareza".equals(c)) return rareza;
-        return null;
+        return getters.getOrDefault(c, k -> null).apply(this);
     }
 
     /**
-     * Asigna un valor a un atributo específico del equipamiento.
-     *
-     * <p>Este método no permite modificar el campo {@code id}.
-     *
-     * @param c nombre del atributo a modificar ("nombre", "rareza")
-     * @param v nuevo valor del atributo (como {@code Object})
-     */
-    @Override
-    public void setValue(String c, Object v) {
-        if ("nombre".equals(c)) nombre = v.toString();
-        else if ("rareza".equals(c)) rareza = Integer.parseInt(v.toString());
-    }
-
-    /**
-     * Representación en forma de cadena del equipamiento.
-     *
-     * @return el nombre del equipamiento
-     */
-    @Override
-    public String toString() {
-        return nombre;
-    }
-}
+     * Asigna un valor*

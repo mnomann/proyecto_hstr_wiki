@@ -1,82 +1,84 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 /**
  * La clase {@code Enemigo} representa una entidad enemiga con atributos como
- * identificador, nombre, nivel y tipo. Implementa la interfaz {@code Registro},
- * lo que permite acceso y modificación dinámica a ciertos atributos.
- * 
- * <p>Actualmente, los métodos {@code getValue} y {@code setValue} solo permiten acceder o modificar
- * los campos {@code id} y {@code nombre}.</p>
- * 
+ * identificador, nombre, nivel y tipo. Adaptada como entidad JPA para persistencia en base de datos.
  */
-class Enemigo implements Registro {
+@Entity
+@Table(name = "enemigos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Enemigo implements Registro {
 
-    /** Identificador único del enemigo */
-    int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    /** Nivel del enemigo (no usado directamente en los métodos dinámicos) */
-    int nivel;
-
-    /** Identificador del tipo de enemigo (referencia externa opcional) */
-    int tipoEnemigoId;
-
-    /** Nombre del enemigo */
-    String nombre;
-
-    /** Nombre del tipo de enemigo (ej. "Barion", "Engendro Escarchado", etc.) */
-    String tipoNombre;
-
-    /**
-     * Constructor por defecto. Crea una instancia vacía de {@code Enemigo}.
-     */
-    Enemigo() {}
+    private int nivel;
+    private int tipoEnemigoId;
+    private String nombre;
+    private String tipoNombre;
 
     /**
-     * Constructor con parámetros básicos.
-     * 
-     * @param id     Identificador del enemigo
-     * @param nombre Nombre del enemigo
+     * Constructor básico para crear un enemigo solo con ID y nombre.
      */
-    Enemigo(int id, String nombre) {
+    public Enemigo(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
+    private static final Map<String, Function<Enemigo, Object>> getters = Map.of(
+        "id", Enemigo::getId,
+        "nombre", Enemigo::getNombre,
+        "nivel", Enemigo::getNivel,
+        "tipoEnemigoId", Enemigo::getTipoEnemigoId,
+        "tipoNombre", Enemigo::getTipoNombre
+    );
+
+    private static final Map<String, BiConsumer<Enemigo, Object>> setters = Map.of(
+        "nombre", (e, v) -> e.setNombre(v.toString())
+        // solo se permite modificar "nombre" por ahora
+    );
+
     /**
-     * Obtiene el valor de un atributo según el nombre proporcionado.
-     * 
-     * @param c Nombre del atributo ("id" o "nombre")
-     * @return El valor correspondiente del atributo, o {@code null} si no es válido
+     * Obtiene dinámicamente el valor de un atributo.
+     *
+     * @param c nombre del campo ("id", "nombre", "nivel", etc.)
+     * @return valor correspondiente o null si no se encuentra
      */
+    @Override
     public Object getValue(String c) {
-        switch (c) {
-            case "id": return id;
-            case "nombre": return nombre;
-        }
-        return null;
+        return getters.getOrDefault(c, k -> null).apply(this);
     }
 
     /**
-     * Establece el valor de un atributo según el nombre proporcionado.
-     * 
-     * <p>Actualmente, solo permite modificar el atributo {@code nombre}.</p>
-     * 
-     * @param c Nombre del atributo a modificar ("nombre")
-     * @param v Valor a establecer
+     * Establece dinámicamente el valor de un atributo.
+     * Actualmente, solo se permite modificar "nombre".
+     *
+     * @param c nombre del campo
+     * @param v nuevo valor
      */
+    @Override
     public void setValue(String c, Object v) {
-        switch (c) {
-            case "nombre":
-                nombre = v.toString();
-                break;
+        if (setters.containsKey(c)) {
+            setters.get(c).accept(this, v);
         }
     }
 
     /**
-     * Devuelve una representación en texto del enemigo, incluyendo su tipo.
-     * 
-     * @return Cadena con el formato {@code "nombre (tipoNombre)"}
+     * Representación del enemigo con nombre y tipo.
      */
+    @Override
     public String toString() {
         return nombre + " (" + tipoNombre + ")";
     }
