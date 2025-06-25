@@ -1,7 +1,5 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
-package proyecto_de_verdad_ahora_si_deveritas;
-
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
