@@ -4,28 +4,54 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 /**
  * Representa un material que se obtiene de un enemigo, implementando la interfaz {@link Registro}.
- *
- * <p>Incluye información como el identificador del material, su nombre, el ID del enemigo del que proviene
- * y el nombre de dicho enemigo. Se utiliza comúnmente para operaciones CRUD dentro del sistema.
  */
+@Entity
+@Table(name = "material_enemigo")
 public class MaterialEnemigo implements Registro {
 
-    int id;
-    int enemigo_id;
-    String nombre;
-    String enemigo;
+    /** Identificador único del material. */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    /** Identificador del enemigo al que pertenece. */
+    @Column(name = "enemigo_id", nullable = false)
+    private Integer enemigoId;
+
+    /** Nombre del material. */
+    @Column(nullable = false)
+    private String nombre;
+
+    /** Nombre descriptivo del enemigo. */
+    @Column(nullable = false)
+    private String enemigo;
 
     public MaterialEnemigo() {}
 
-    public MaterialEnemigo(int id, String nombre, int enemigo_id, String enemigo) {
-        this.id = id;
-        this.nombre = nombre;
-        this.enemigo_id = enemigo_id;
-        this.enemigo = enemigo;
+    /** Constructor de conveniencia (sin id, JPA lo asigna). */
+    public MaterialEnemigo(String nombre, Integer enemigoId, String enemigo) {
+        this.nombre     = nombre;
+        this.enemigoId  = enemigoId;
+        this.enemigo    = enemigo;
     }
 
+     public MaterialEnemigo(Integer id, String nombre, Integer enemigoId, String enemigo) {
+        this.id         = id;
+        this.nombre     = nombre;
+        this.enemigoId  = enemigoId;
+        this.enemigo    = enemigo;
+    }
+
+    // Mapas de getters/setters para la interfaz Registro
     private static final Map<String, Function<MaterialEnemigo, Object>> getters = Map.of(
         "id", MaterialEnemigo::getId,
         "nombre", MaterialEnemigo::getNombre,
@@ -34,66 +60,58 @@ public class MaterialEnemigo implements Registro {
     );
 
     private static final Map<String, BiConsumer<MaterialEnemigo, Object>> setters = Map.of(
-        "nombre", (m, v) -> m.setNombre(v.toString()),
+        "nombre",     (m, v) -> m.setNombre(v.toString()),
         "enemigo_id", (m, v) -> m.setEnemigoId(Integer.parseInt(v.toString()))
     );
 
-    /**
-     * Devuelve el valor de uno de los atributos del material, dado su nombre.
-     *
-     * @param c nombre del atributo ("id", "nombre", "enemigo_id", "enemigo")
-     * @return el valor correspondiente o {@code null} si no existe ese atributo
-     */
+    /** Implementación de Registro: obtener valor dinámicamente. */
     @Override
-    public Object getValue(String c) {
-        return getters.getOrDefault(c, k -> null).apply(this);
+    public Object getValue(String campo) {
+        return getters.getOrDefault(campo, m -> null).apply(this);
     }
 
-    /**
-     * Asigna un nuevo valor a uno de los atributos del material.
-     *
-     * <p>Solo permite modificar los campos {@code nombre} y {@code enemigo_id}.
-     *
-     * @param c nombre del atributo
-     * @param v nuevo valor
-     */
+    /** Implementación de Registro: asignar valor dinámicamente. */
     @Override
-    public void setValue(String c, Object v) {
-        if (setters.containsKey(c)) {
-            setters.get(c).accept(this, v);
+    public void setValue(String campo, Object valor) {
+        if (setters.containsKey(campo)) {
+            setters.get(campo).accept(this, valor);
         }
     }
 
     @Override
     public String toString() {
-        return nombre + " (" + enemigo + ")";
+        return nombre + " (de: " + enemigo + ")";
     }
 
-    public int getId() {
+    // —— Getters y Setters —— //
+
+    public Integer getId() {
         return id;
     }
+    // no setter público de id
 
-    public int getEnemigoId() {
-        return enemigo_id;
+   public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getEnemigoId() {
+        return enemigoId;
+    }
+    public void setEnemigoId(Integer enemigoId) {
+        this.enemigoId = enemigoId;
     }
 
     public String getNombre() {
         return nombre;
     }
-
-    public String getEnemigo() {
-        return enemigo;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setEnemigoId(int enemigo_id) {
-        this.enemigo_id = enemigo_id;
+    public String getEnemigo() {
+        return enemigo;
     }
-
-    public void setId(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setEnemigo(String enemigo) {
+        this.enemigo = enemigo;
     }
 }

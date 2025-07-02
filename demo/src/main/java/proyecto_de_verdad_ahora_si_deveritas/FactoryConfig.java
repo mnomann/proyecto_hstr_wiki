@@ -66,7 +66,7 @@ public class FactoryConfig {
 
     @Bean
     public RegistroFactory<Personaje> personajeFactory() {
-        return new GenericFactory<>(
+        return new GenericFactory<Personaje>(
             rs -> {
                 try {
                     return new Personaje(rs.getInt("id"), rs.getString("nombre"), rs.getInt("rareza"), rs.getInt("nivel"));

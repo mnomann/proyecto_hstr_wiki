@@ -1,90 +1,117 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 /**
  * Representa un objeto de tipo Equipamiento que implementa la interfaz {@code Registro}.
  *
  * <p>Contiene información básica como identificador, nombre y rareza.
  * Es utilizado como modelo de datos para operaciones CRUD genéricas en la interfaz.
  * </p>
- * 
  */
+@Entity
+@Table(name = "equipamientos")
 public class Equipamiento implements Registro {
 
     /** Identificador único del equipamiento. */
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /** Nombre del equipamiento. */
+    @Column(nullable = false)
     private String nombre;
 
     /** Nivel de rareza del equipamiento. */
-    private int rareza;
+    @Column(nullable = false)
+    private Integer rareza;
 
-    /**
-     * Constructor por defecto. Necesario para la creación mediante reflexión o fábrica.
-     */
+    /** Constructor por defecto. */
     public Equipamiento() {}
 
     /**
      * Crea un nuevo objeto {@code Equipamiento} con los valores especificados.
      *
-     * @param id identificador único
      * @param nombre nombre del equipamiento
      * @param rareza nivel de rareza del equipamiento
      */
-    public Equipamiento(int id, String nombre, int rareza) {
-        this.id = id;
+    public Equipamiento(String nombre, Integer rareza) {
         this.nombre = nombre;
         this.rareza = rareza;
     }
 
-    /**
-     * Retorna el valor de un atributo dado su nombre como cadena.
-     *
-     * @param c nombre del atributo ("id", "nombre", "rareza")
-     * @return el valor correspondiente al atributo, o {@code null} si el nombre no es válido
-     */
-    @Override
-    public Object getValue(String c) {
-        switch (c) {
-            case "id": return id;
-            case "nombre": return nombre;
-            case "rareza": return rareza;
-            default: return null;
-        }
+    public Equipamiento(Integer id, String nombre, Integer rareza) {
+    this.id = id;
+    this.nombre = nombre;
+    this.rareza = rareza;
+}
+
+    // --------------------
+    // Getters y Setters
+    // --------------------
+
+    public Integer getId() {
+        return id;
     }
 
-    /**
-     * Asigna un valor a un atributo específico del equipamiento.
-     *
-     * <p>Este método no permite modificar el campo {@code id}.</p>
-     *
-     * @param c nombre del atributo a modificar ("nombre", "rareza")
-     * @param v nuevo valor del atributo (como {@code Object})
-     */
-    @Override
-    public void setValue(String c, Object v) {
-        switch (c) {
-            case "nombre":
-                this.nombre = v.toString();
-                break;
-            case "rareza":
-                this.rareza = Integer.parseInt(v.toString());
-                break;
-            // no permitir modificar el ID
-        }
-    }
+    // No setter de ID público para mantener integridad; JPA lo asigna.
 
-    /**
-     * Representación en forma de cadena del equipamiento.
-     *
-     * @return el nombre del equipamiento
-     */
-    @Override
-    public String toString() {
+    public String getNombre() {
         return nombre;
     }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public void setId(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Integer getRareza() {
+        return rareza;
+    }
+    public void setRareza(Integer rareza) {
+        this.rareza = rareza;
+    }
+
+    // --------------------
+    // Implementación de Registro
+    // --------------------
+
+    @Override
+    public Object getValue(String campo) {
+        switch (campo) {
+            case "id":      return id;
+            case "nombre":  return nombre;
+            case "rareza":  return rareza;
+            default:        return null;
+        }
+    }
+
+    @Override
+    public void setValue(String campo, Object valor) {
+        switch (campo) {
+            case "nombre":
+                this.nombre = valor.toString();
+                break;
+            case "rareza":
+                this.rareza = Integer.parseInt(valor.toString());
+                break;
+            // no permita modificar id
+        }
+    }
+
+    public void setId(Integer id) {
+    this.id = id;
+}
+
+    @Override
+    public String toString() {
+        return "Equipamiento{" +
+               "id=" + id +
+               ", nombre='" + nombre + '\'' +
+               ", rareza=" + rareza +
+               '}';
     }
 }

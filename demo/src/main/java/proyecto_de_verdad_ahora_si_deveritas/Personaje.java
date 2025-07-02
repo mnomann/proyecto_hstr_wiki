@@ -1,90 +1,126 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 /**
  * Representa un personaje dentro del sistema, implementando la interfaz {@link Registro}.
  *
  * <p>Incluye atributos como ID, nombre, rareza y nivel. Es utilizada en operaciones CRUD
  * genéricas mediante paneles dinámicos en la interfaz gráfica.
  */
+@Entity
+@Table(name = "personajes")
 public class Personaje implements Registro {
 
     /** Identificador único del personaje. */
-    int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /** Rareza del personaje (por ejemplo, 1 a 5 estrellas). */
-    int rareza;
+    @Column(nullable = false)
+    private Integer rareza;
 
     /** Nivel actual del personaje. */
-    int nivel;
+    @Column(nullable = false)
+    private Integer nivel;
 
     /** Nombre del personaje. */
-    String nombre;
+    @Column(nullable = false)
+    private String nombre;
 
-    /**
-     * Constructor por defecto. Utilizado en instancias vacías o dinámicas.
-     */
+    /** Constructor vacío requerido por JPA. */
     public Personaje() {}
 
     /**
-     * Constructor completo que inicializa todos los campos del personaje.
+     * Constructor de conveniencia (sin id, JPA lo asigna).
      *
-     * @param id identificador del personaje
      * @param nombre nombre del personaje
      * @param rareza rareza del personaje
-     * @param nivel nivel del personaje
+     * @param nivel  nivel del personaje
      */
-    public Personaje(int id, String nombre, int rareza, int nivel) {
-        this.id = id;
+    public Personaje(String nombre, Integer rareza, Integer nivel) {
         this.nombre = nombre;
         this.rareza = rareza;
-        this.nivel = nivel;
+        this.nivel  = nivel;
     }
 
-    /**
-     * Obtiene el valor de un campo del personaje por nombre.
-     *
-     * @param c nombre del campo ("id", "nombre", "rareza", "nivel")
-     * @return el valor correspondiente o {@code null} si no existe
-     */
-    @Override
-    public Object getValue(String c) {
-        return switch (c) {
-            case "id" -> id;
-            case "nombre" -> nombre;
-            case "rareza" -> rareza;
-            case "nivel" -> nivel;
-            default -> null;
-        };
+     public Personaje(Integer id, String nombre, Integer rareza, Integer nivel) {
+        this.id     = id;
+        this.nombre = nombre;
+        this.rareza = rareza;
+        this.nivel  = nivel;
     }
 
-    /**
-     * Asigna un nuevo valor a uno de los campos editables del personaje.
-     *
-     * <p>Solo se pueden modificar {@code nombre}, {@code rareza} y {@code nivel}.
-     *
-     * @param c nombre del campo a modificar
-     * @param v nuevo valor
-     */
+    // —— Mapas para Registro —— //
+    private static final Map<String, Function<Personaje, Object>> getters = Map.of(
+        "id",      Personaje::getId,
+        "nombre",  Personaje::getNombre,
+        "rareza",  Personaje::getRareza,
+        "nivel",   Personaje::getNivel
+    );
+
+    private static final Map<String, BiConsumer<Personaje, Object>> setters = Map.of(
+        "nombre", (p, v) -> p.setNombre(v.toString()),
+        "rareza", (p, v) -> p.setRareza(Integer.parseInt(v.toString())),
+        "nivel",  (p, v) -> p.setNivel(Integer.parseInt(v.toString()))
+    );
+
     @Override
-    public void setValue(String c, Object v) {
-        switch (c) {
-            case "nombre" -> nombre = v.toString();
-            case "rareza" -> rareza = Integer.parseInt(v.toString());
-            case "nivel" -> nivel = Integer.parseInt(v.toString());
+    public Object getValue(String campo) {
+        return getters.getOrDefault(campo, p -> null).apply(this);
+    }
+
+    @Override
+    public void setValue(String campo, Object valor) {
+        if (setters.containsKey(campo)) {
+            setters.get(campo).accept(this, valor);
         }
     }
 
-    /**
-     * Representación en texto del personaje, generalmente para uso en listas.
-     *
-     * @return el nombre del personaje
-     */
     @Override
     public String toString() {
         return nombre;
     }
 
-    public void setId(int id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    // —— Getters y Setters para JPA —— //
+
+    public Integer getId() {
+        return id;
+    }
+    // no public setter de id
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getRareza() {
+        return rareza;
+    }
+    public void setRareza(Integer rareza) {
+        this.rareza = rareza;
+    }
+
+    public Integer getNivel() {
+        return nivel;
+    }
+    public void setNivel(Integer nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>HSR Wiki DB Client</title>
+</head>
+<body>
+  <h1>WikiApp</h1>
+  <ul>
+    <li><a th:href="@{/personajes}">Personajes</a></li>
+    <li><a th:href="@{/equipamiento}">Equipamiento</a></li>
+    <li><a th:href="@{/material-enemigo}">Material Enemigo</a></li>
+    <li><a th:href="@{/enemigo}">Enemigos</a></li>
+    <li><a th:href="@{/cono}">Conos</a></li>
+    <li><a th:href="@{/via}">Vías</a></li>
+  </ul>
+</body>
+</html>
+<style>
+body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #f5f6fa;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  color: #ffe066;
+  text-shadow: 0 2px 8px #222, 0 0 10px #ffe06688;
+  margin-top: 40px;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 40px auto 0 auto;
+  max-width: 400px;
+  background: rgba(34, 40, 49, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #000a;
+}
+
+li {
+  margin: 0;
+  border-bottom: 1px solid #232946;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+a {
+  display: block;
+  padding: 18px 0;
+  color: #00adb5;
+  font-size: 1.2rem;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: 
+    color 0.2s,
+    background 0.2s,
+    box-shadow 0.2s;
+  position: relative;
+}
+
+a:hover, a:focus {
+  color: #ffe066;
+  background: linear-gradient(90deg, #00adb5 0%, #22223b 100%);
+  box-shadow: 0 0 12px #00adb5aa, 0 0 24px #ffe06655;
+  outline: none;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+</style>
