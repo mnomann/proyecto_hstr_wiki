@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Registrarse</h2>
+<form id="registerForm">
+  <input type="text" placeholder="Usuario" name="username" required />
+  <input type="password" placeholder="Contraseña" name="password" required />
+  <select name="rol">
+    <option value="usuario">Usuario</option>
+    <option value="admin">Administrador</option>
+  </select>
+  <button type="submit">Registrarse</button>
+</form>
+<p id="registerMsg"></p>
+<script src="js/register.js"></script>
+
+</body>
+</html>
+
+<style>
+body {
+  background: linear-gradient(135deg, #1a2236 0%, #3a3f5a 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #e0e6f6;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+  color: #ffe066;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 8px #2e3a5c;
+  margin-bottom: 24px;
+}
+
+form#registerForm {
+  background: rgba(34, 40, 60, 0.95);
+  border: 2px solid #6ad1e3;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 #000a2a88;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 320px;
+}
+
+form#registerForm input,
+form#registerForm select {
+  background: #232a44;
+  border: 1px solid #6ad1e3;
+  border-radius: 8px;
+  color: #e0e6f6;
+  padding: 10px 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+form#registerForm input:focus,
+form#registerForm select:focus {
+  border-color: #ffe066;
+}
+
+form#registerForm button {
+  background: linear-gradient(90deg, #6ad1e3 0%, #ffe066 100%);
+  color: #232a44;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #6ad1e355;
+  transition: background 0.2s, color 0.2s;
+}
+
+form#registerForm button:hover {
+  background: linear-gradient(90deg, #ffe066 0%, #6ad1e3 100%);
+  color: #1a2236;
+}
+
+#registerMsg {
+  margin-top: 18px;
+  font-size: 1rem;
+  color: #ffe066;
+  text-align: center;
+  min-height: 24px;
+}
+</style>
+
+<script>
+
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const res = await fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: form.username.value,
+      password: form.password.value,
+      rol: form.rol.value
+    })
+  });
+  const data = await res.json();
+  document.getElementById('registerMsg').innerText = data.message;
+
+  if (res.ok) {
+    window.location.href = 'login.html';
+  }
+});
+
+
+</script>
