@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h2>Buscador de Personajes</h2>
+
+<input type="text" id="nombreInput" placeholder="Buscar por nombre">
+<select id="tipoInput">
+  <option value="">Tipo</option>
+  <option value="DPS">DPS</option>
+  <option value="Apoyo">Apoyo</option>
+  <option value="Defensa">Defensa</option>
+</select>
+<select id="afinidadInput">
+  <option value="">Afinidad</option>
+  <option value="Fuego">Fuego</option>
+  <option value="Hielo">Hielo</option>
+  <option value="Cuántico">Cuántico</option>
+</select>
+<button id="buscarBtn">Buscar</button>
+
+<script>
+document.getElementById('buscarBtn').addEventListener('click', function() {
+    const nombre = document.getElementById('nombreInput').value.trim().toLowerCase();
+    if (nombre) {
+        // Normaliza el nombre para coincidir con el archivo html (ejemplo: "dan heng" => "danHeng.html")
+        // Puedes ajustar este mapeo según tus nombres de archivo reales
+        const nombresMap = {
+            "arlan": "Personajes/arlan.html",
+            "asta": "asta.html",
+            "bailu": "bailu.html",
+            "bronya": "bronya.html",
+            "clara": "clara.html",
+            "dan heng": "dangHeng.html",
+            "gepard": "gepard.html",
+            "herta": "Herta.html",
+            "himeko": "himeko.html",
+            "hook": "hook.html",
+            "jing yuan": "jinYuan.html",
+            "kafka": "kafka.html",
+            "luocha": "luocha.html",
+            "natasha": "natasha.html",
+            "pela": "pela.html",
+            "qingque": "qinque.html",
+            "sampo": "sampo.html",
+            "seele": "seele.html",
+            "serval": "serval.html",
+            "7 de marzo": "sieteDeMarzo.html",
+            "silver wolf": "silverWolf.html",
+            "sushang": "sushang.html",
+            "tingyun": "tingyun.html",
+            "trazacaminos": "trazacaminosDestruccion.html",
+            "welt": "welt.html",
+            "yanqing": "yanqing.html",
+            "trazacaminos armonia": "trazacaminosDestruccion.html" 
+        };
+        if (nombresMap[nombre]) {
+            window.location.href = "Personajes/" + nombresMap[nombre];
+        } else {
+            alert("Personaje no encontrado. Intenta con otro nombre.");
+        }
+    } else {
+        cargarPersonajes(); 
+    }
+});
+</script>
+
+<div id="galeriaPersonajes" style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; margin-bottom: 40px;">
+    <a href="Personajes/arlan.html" class="personaje-link"><img src="/img/personajes/arlan.png" alt="Arlan" class="img-personaje"><br><span class="nombre-personaje">Arlan</span></a>
+    <a href="Personajes/asta.html" class="personaje-link"><img src="/img/personajes/asta.png" alt="Asta" class="img-personaje"><br><span class="nombre-personaje">Asta</span></a>
+    <a href="Personajes/bailu.html" class="personaje-link"><img src="/img/personajes/bailu.png" alt="Bailu" class="img-personaje"><br><span class="nombre-personaje">Bailu</span></a>
+    <a href="Personajes/bronya.html" class="personaje-link"><img src="/img/personajes/bronya.png" alt="Bronya" class="img-personaje"><br><span class="nombre-personaje">Bronya</span></a>
+    <a href="Personajes/clara.html" class="personaje-link"><img src="/img/personajes/clara.png" alt="Clara" class="img-personaje"><br><span class="nombre-personaje">Clara</span></a>
+    <a href="Personajes/dangHeng.html" class="personaje-link"><img src="/img/personajes/dan heng.png" alt="Dan Heng" class="img-personaje"><br><span class="nombre-personaje">Dan Heng</span></a>
+    <a href="Personajes/gepard.html" class="personaje-link"><img src="/img/personajes/gepard.png" alt="Gepard" class="img-personaje"><br><span class="nombre-personaje">Gepard</span></a>
+    <a href="Personajes/Herta.html" class="personaje-link"><img src="/img/personajes/herta.png" alt="Herta" class="img-personaje"><br><span class="nombre-personaje">Herta</span></a>
+    <a href="Personajes/himeko.html" class="personaje-link"><img src="/img/personajes/himeko.png" alt="Himeko" class="img-personaje"><br><span class="nombre-personaje">Himeko</span></a>
+    <a href="Personajes/hook.html" class="personaje-link"><img src="/img/personajes/hook.png" alt="Hook" class="img-personaje"><br><span class="nombre-personaje">Hook</span></a>
+    <a href="Personajes/jinYuan.html" class="personaje-link"><img src="/img/personajes/jing yuan.png" alt="Jing Yuan" class="img-personaje"><br><span class="nombre-personaje">Jing Yuan</span></a>
+    <a href="Personajes/kafka.html" class="personaje-link"><img src="/img/personajes/kafka.png" alt="Kafka" class="img-personaje"><br><span class="nombre-personaje">Kafka</span></a>
+    <a href="Personajes/luocha.html" class="personaje-link"><img src="/img/personajes/luocha.png" alt="Luocha" class="img-personaje"><br><span class="nombre-personaje">Luocha</span></a>
+    <a href="Personajes/natasha.html" class="personaje-link"><img src="/img/personajes/natasha.png" alt="Natasha" class="img-personaje"><br><span class="nombre-personaje">Natasha</span></a>
+    <a href="Personajes/pela.html" class="personaje-link"><img src="/img/personajes/pela.png" alt="Pela" class="img-personaje"><br><span class="nombre-personaje">Pela</span></a>
+    <a href="Personajes/qinque.html" class="personaje-link"><img src="/img/personajes/qingque.png" alt="Qingque" class="img-personaje"><br><span class="nombre-personaje">Qingque</span></a>
+    <a href="Personajes/sampo.html" class="personaje-link"><img src="/img/personajes/sampo.png" alt="Sampo" class="img-personaje"><br><span class="nombre-personaje">Sampo</span></a>
+    <a href="Personajes/seele.html" class="personaje-link"><img src="/img/personajes/seele.png" alt="Seele" class="img-personaje"><br><span class="nombre-personaje">Seele</span></a>
+    <a href="Personajes/serval.html" class="personaje-link"><img src="/img/personajes/serval.png" alt="Serval" class="img-personaje"><br><span class="nombre-personaje">Serval</span></a>
+    <a href="Personajes/sieteDeMarzo.html" class="personaje-link"><img src="/img/personajes/siete de marzo.png" alt="7 de Marzo" class="img-personaje"><br><span class="nombre-personaje">7 de Marzo</span></a>
+    <a href="Personajes/silverWolf.html" class="personaje-link"><img src="/img/personajes/silver wolf.png" alt="Silver Wolf" class="img-personaje"><br><span class="nombre-personaje">Silver Wolf</span></a>
+    <a href="Personajes/sushang.html" class="personaje-link"><img src="/img/personajes/sushang.png" alt="Sushang" class="img-personaje"><br><span class="nombre-personaje">Sushang</span></a>
+    <a href="Personajes/tingyun.html" class="personaje-link"><img src="/img/personajes/tingyun.png" alt="Tingyun" class="img-personaje"><br><span class="nombre-personaje">Tingyun</span></a>
+    <a href="Personajes/trazacaminosDestruccion.html" class="personaje-link"><img src="/img/personajes/trazacaminos armonia.png" alt="Trazacaminos Armonia" class="img-personaje"><br><span class="nombre-personaje">Trazacaminos (Armonia)</span></a>
+    <a href="Personajes/welt.html" class="personaje-link"><img src="/img/personajes/welt.png" alt="Welt" class="img-personaje"><br><span class="nombre-personaje">Welt</span></a>
+    <a href="Personajes/yanqing.html" class="personaje-link"><img src="/img/personajes/yanqing.png" alt="Yanqing" class="img-personaje"><br><span class="nombre-personaje">Yanqing</span></a>
+</div>
+
+
+<style>
+
+    .img-personaje {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 3px solid #ffe066;
+    background: #23284a;
+    box-shadow: 0 4px 18px #0007, 0 0 0 4px #ffe06633;
+    transition: transform 0.18s, box-shadow 0.18s;
+    margin-bottom: 10px;
+}
+.personaje-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+.personaje-link:hover .img-personaje {
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 8px 32px #ffe06655, 0 2px 12px #0008;
+    border-color: #fffbe6;
+}
+.nombre-personaje {
+    margin-top: 2px;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-size: 1.18rem;
+    font-weight: bold;
+    color: #ffe066;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #222, 0 0 6px #ffe06655;
+    background: linear-gradient(90deg, #ffe066 60%, #f7b801 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+body {
+    background: linear-gradient(135deg, #1a2236 0%, #3a3f5a 100%);
+    color: #e0e6f8;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: #ffe066;
+    text-shadow: 0 2px 8px #222;
+}
+
+input[type="text"], select {
+    background: #23284a;
+    color: #e0e6f8;
+    border: 1px solid #4e5d94;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin: 8px 6px 16px 0;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus, select:focus {
+    border: 1.5px solid #ffe066;
+}
+
+#buscarBtn {
+    background: linear-gradient(90deg, #ffe066 60%, #f7b801 100%);
+    color: #23284a;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #2224;
+    transition: background 0.2s, color 0.2s;
+}
+
+#buscarBtn:hover {
+    background: linear-gradient(90deg, #f7b801 60%, #ffe066 100%);
+    color: #1a2236;
+}
+
+#personajesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+    margin: 32px auto 0 auto;
+    max-width: 1100px;
+}
+
+#personajesContainer > div {
+    background: linear-gradient(135deg, #23284a 60%, #2e3350 100%);
+    border: 1.5px solid #ffe06655;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px #0006;
+    padding: 24px 20px 18px 20px;
+    width: 270px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.18s, box-shadow 0.18s;
+}
+
+#personajesContainer > div:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px #ffe06633, 0 2px 12px #0008;
+    border-color: #ffe066;
+}
+
+#personajesContainer h3 {
+    margin: 0 0 8px 0;
+    color: #ffe066;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+#personajesContainer p {
+    margin: 4px 0;
+    color: #e0e6f8;
+    font-size: 1rem;
+}
+
+#personajesContainer button {
+    margin-top: 10px;
+    align-self: flex-end;
+    background: #ffe066;
+    color: #23284a;
+    border: none;
+    border-radius: 5px;
+    padding: 7px 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+}
+
+#personajesContainer button:hover {
+    background: #f7b801;
+    color: #1a2236;
+}
+</style>
+
+<script>
+
+async function cargarPersonajes() {
+  const nombre = document.getElementById('nombreInput').value;
+  const tipo = document.getElementById('tipoInput').value;
+  const afinidad = document.getElementById('afinidadInput').value;
+
+  let url = '/api/personajes?';
+  if (nombre) url += `nombre=${encodeURIComponent(nombre)}&`;
+  if (tipo) url += `tipo=${encodeURIComponent(tipo)}&`;
+  if (afinidad) url += `afinidad=${encodeURIComponent(afinidad)}&`;
+
+  const res = await fetch(url);
+  const personajes = await res.json();
+
+  const container = document.getElementById('personajesContainer');
+  container.innerHTML = ''; 
+
+  personajes.forEach(p => {
+    const card = document.createElement('div');
+    card.innerHTML = `
+      <h3>${p.nombre}</h3>
+      <p><strong>Tipo:</strong> ${p.tipo}</p>
+      <p><strong>Afinidad:</strong> ${p.afinidad}</p>
+      <p>${p.descripcion}</p>
+      <button onclick="verDetalle(${p.id})">Ver más</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function verDetalle(id) {
+  window.location.href = `personaje.html?id=${id}`;
+}
+
+// Cargar al inicio
+window.onload = cargarPersonajes;
+
+
+</script>
