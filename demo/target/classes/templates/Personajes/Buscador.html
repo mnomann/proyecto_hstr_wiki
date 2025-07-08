@@ -26,77 +26,60 @@
 
 <script>
 document.getElementById('buscarBtn').addEventListener('click', function() {
-    const nombre = document.getElementById('nombreInput').value.trim().toLowerCase();
-    if (nombre) {
-        // Normaliza el nombre para coincidir con el archivo html (ejemplo: "dan heng" => "danHeng.html")
-        // Puedes ajustar este mapeo según tus nombres de archivo reales
-        const nombresMap = {
-            "arlan": "Personajes/arlan.html",
-            "asta": "asta.html",
-            "bailu": "bailu.html",
-            "bronya": "bronya.html",
-            "clara": "clara.html",
-            "dan heng": "dangHeng.html",
-            "gepard": "gepard.html",
-            "herta": "Herta.html",
-            "himeko": "himeko.html",
-            "hook": "hook.html",
-            "jing yuan": "jinYuan.html",
-            "kafka": "kafka.html",
-            "luocha": "luocha.html",
-            "natasha": "natasha.html",
-            "pela": "pela.html",
-            "qingque": "qinque.html",
-            "sampo": "sampo.html",
-            "seele": "seele.html",
-            "serval": "serval.html",
-            "7 de marzo": "sieteDeMarzo.html",
-            "silver wolf": "silverWolf.html",
-            "sushang": "sushang.html",
-            "tingyun": "tingyun.html",
-            "trazacaminos": "trazacaminosDestruccion.html",
-            "welt": "welt.html",
-            "yanqing": "yanqing.html",
-            "trazacaminos armonia": "trazacaminosDestruccion.html" 
-        };
-        if (nombresMap[nombre]) {
-            window.location.href = "Personajes/" + nombresMap[nombre];
+    const nombre = document.getElementById('nombreInput').value.trim();
+    const id = ""; 
+
+    // Construir la URL de búsqueda
+    let url = '/api/personajes/buscar?';
+    if (nombre) url += 'nombre=' + encodeURIComponent(nombre);
+    if (id) url += '&id=' + encodeURIComponent(id);
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data.length === 1) {
+          // Si hay un solo resultado, redirige directamente a la página del personaje
+          window.location.href = data[0].ruta;
+        } else if (data.length > 1) {
+          // Si hay varios resultados, puedes mostrar una lista o elegir el primero
+          window.location.href = data[0].ruta;
         } else {
-            alert("Personaje no encontrado. Intenta con otro nombre.");
+          // Si no hay resultados, muestra mensaje
+          const galeria = document.getElementById('galeriaPersonajes');
+          galeria.innerHTML = "<p style='color:white'>No se encontraron personajes.</p>";
         }
-    } else {
-        cargarPersonajes(); 
-    }
+      });
 });
 </script>
 
+
 <div id="galeriaPersonajes" style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; margin-bottom: 40px;">
-    <a href="Personajes/arlan.html" class="personaje-link"><img src="/img/personajes/arlan.png" alt="Arlan" class="img-personaje"><br><span class="nombre-personaje">Arlan</span></a>
-    <a href="Personajes/asta.html" class="personaje-link"><img src="/img/personajes/asta.png" alt="Asta" class="img-personaje"><br><span class="nombre-personaje">Asta</span></a>
-    <a href="Personajes/bailu.html" class="personaje-link"><img src="/img/personajes/bailu.png" alt="Bailu" class="img-personaje"><br><span class="nombre-personaje">Bailu</span></a>
-    <a href="Personajes/bronya.html" class="personaje-link"><img src="/img/personajes/bronya.png" alt="Bronya" class="img-personaje"><br><span class="nombre-personaje">Bronya</span></a>
-    <a href="Personajes/clara.html" class="personaje-link"><img src="/img/personajes/clara.png" alt="Clara" class="img-personaje"><br><span class="nombre-personaje">Clara</span></a>
-    <a href="Personajes/dangHeng.html" class="personaje-link"><img src="/img/personajes/dan heng.png" alt="Dan Heng" class="img-personaje"><br><span class="nombre-personaje">Dan Heng</span></a>
-    <a href="Personajes/gepard.html" class="personaje-link"><img src="/img/personajes/gepard.png" alt="Gepard" class="img-personaje"><br><span class="nombre-personaje">Gepard</span></a>
-    <a href="Personajes/Herta.html" class="personaje-link"><img src="/img/personajes/herta.png" alt="Herta" class="img-personaje"><br><span class="nombre-personaje">Herta</span></a>
-    <a href="Personajes/himeko.html" class="personaje-link"><img src="/img/personajes/himeko.png" alt="Himeko" class="img-personaje"><br><span class="nombre-personaje">Himeko</span></a>
-    <a href="Personajes/hook.html" class="personaje-link"><img src="/img/personajes/hook.png" alt="Hook" class="img-personaje"><br><span class="nombre-personaje">Hook</span></a>
-    <a href="Personajes/jinYuan.html" class="personaje-link"><img src="/img/personajes/jing yuan.png" alt="Jing Yuan" class="img-personaje"><br><span class="nombre-personaje">Jing Yuan</span></a>
-    <a href="Personajes/kafka.html" class="personaje-link"><img src="/img/personajes/kafka.png" alt="Kafka" class="img-personaje"><br><span class="nombre-personaje">Kafka</span></a>
-    <a href="Personajes/luocha.html" class="personaje-link"><img src="/img/personajes/luocha.png" alt="Luocha" class="img-personaje"><br><span class="nombre-personaje">Luocha</span></a>
-    <a href="Personajes/natasha.html" class="personaje-link"><img src="/img/personajes/natasha.png" alt="Natasha" class="img-personaje"><br><span class="nombre-personaje">Natasha</span></a>
-    <a href="Personajes/pela.html" class="personaje-link"><img src="/img/personajes/pela.png" alt="Pela" class="img-personaje"><br><span class="nombre-personaje">Pela</span></a>
-    <a href="Personajes/qinque.html" class="personaje-link"><img src="/img/personajes/qingque.png" alt="Qingque" class="img-personaje"><br><span class="nombre-personaje">Qingque</span></a>
-    <a href="Personajes/sampo.html" class="personaje-link"><img src="/img/personajes/sampo.png" alt="Sampo" class="img-personaje"><br><span class="nombre-personaje">Sampo</span></a>
-    <a href="Personajes/seele.html" class="personaje-link"><img src="/img/personajes/seele.png" alt="Seele" class="img-personaje"><br><span class="nombre-personaje">Seele</span></a>
-    <a href="Personajes/serval.html" class="personaje-link"><img src="/img/personajes/serval.png" alt="Serval" class="img-personaje"><br><span class="nombre-personaje">Serval</span></a>
-    <a href="Personajes/sieteDeMarzo.html" class="personaje-link"><img src="/img/personajes/siete de marzo.png" alt="7 de Marzo" class="img-personaje"><br><span class="nombre-personaje">7 de Marzo</span></a>
-    <a href="Personajes/silverWolf.html" class="personaje-link"><img src="/img/personajes/silver wolf.png" alt="Silver Wolf" class="img-personaje"><br><span class="nombre-personaje">Silver Wolf</span></a>
-    <a href="Personajes/sushang.html" class="personaje-link"><img src="/img/personajes/sushang.png" alt="Sushang" class="img-personaje"><br><span class="nombre-personaje">Sushang</span></a>
-    <a href="Personajes/tingyun.html" class="personaje-link"><img src="/img/personajes/tingyun.png" alt="Tingyun" class="img-personaje"><br><span class="nombre-personaje">Tingyun</span></a>
-    <a href="Personajes/trazacaminosDestruccion.html" class="personaje-link"><img src="/img/personajes/trazacaminos armonia.png" alt="Trazacaminos Armonia" class="img-personaje"><br><span class="nombre-personaje">Trazacaminos (Armonia)</span></a>
-    <a href="Personajes/welt.html" class="personaje-link"><img src="/img/personajes/welt.png" alt="Welt" class="img-personaje"><br><span class="nombre-personaje">Welt</span></a>
-    <a href="Personajes/yanqing.html" class="personaje-link"><img src="/img/personajes/yanqing.png" alt="Yanqing" class="img-personaje"><br><span class="nombre-personaje">Yanqing</span></a>
+    <a href="Personajes/arlan" class="personaje-link"><img src="/img/personajes/arlan.png" alt="Arlan" class="img-personaje"><br><span class="nombre-personaje">Arlan</span></a>
+    <a href="Personajes/asta" class="personaje-link"><img src="/img/personajes/asta.png" alt="Asta stands smiling in a stylized portrait with a confident expression, set against a dark blue and gold circular background. The name Asta appears below the portrait in bold yellow text." class="img-personaje"><br><span class="nombre-personaje">Asta</span></a>
+    <a href="Personajes/bailu" class="personaje-link"><img src="/img/personajes/bailu.png" alt="Bailu" class="img-personaje"><br><span class="nombre-personaje">Bailu</span></a>
+    <a href="Personajes/bronya" class="personaje-link"><img src="/img/personajes/bronya.png" alt="Bronya" class="img-personaje"><br><span class="nombre-personaje">Bronya</span></a>
+    <a href="Personajes/clara" class="personaje-link"><img src="/img/personajes/clara.png" alt="Clara" class="img-personaje"><br><span class="nombre-personaje">Clara</span></a>
+    <a href="Personajes/dangHeng" class="personaje-link"><img src="/img/personajes/dan heng.png" alt="Dan Heng" class="img-personaje"><br><span class="nombre-personaje">Dan Heng</span></a>
+    <a href="Personajes/gepard" class="personaje-link"><img src="/img/personajes/gepard.png" alt="Gepard" class="img-personaje"><br><span class="nombre-personaje">Gepard</span></a>
+    <a href="Personajes/Herta" class="personaje-link"><img src="/img/personajes/herta.png" alt="Herta" class="img-personaje"><br><span class="nombre-personaje">Herta</span></a>
+    <a href="Personajes/himeko" class="personaje-link"><img src="/img/personajes/himeko.png" alt="Himeko" class="img-personaje"><br><span class="nombre-personaje">Himeko</span></a>
+    <a href="Personajes/hook" class="personaje-link"><img src="/img/personajes/hook.png" alt="Hook" class="img-personaje"><br><span class="nombre-personaje">Hook</span></a>
+    <a href="Personajes/jinYuan" class="personaje-link"><img src="/img/personajes/jing yuan.png" alt="Jing Yuan" class="img-personaje"><br><span class="nombre-personaje">Jing Yuan</span></a>
+    <a href="Personajes/kafka" class="personaje-link"><img src="/img/personajes/kafka.png" alt="Kafka" class="img-personaje"><br><span class="nombre-personaje">Kafka</span></a>
+    <a href="Personajes/luocha" class="personaje-link"><img src="/img/personajes/luocha.png" alt="Luocha" class="img-personaje"><br><span class="nombre-personaje">Luocha</span></a>
+    <a href="Personajes/natasha" class="personaje-link"><img src="/img/personajes/natasha.png" alt="Natasha" class="img-personaje"><br><span class="nombre-personaje">Natasha</span></a>
+    <a href="Personajes/pela" class="personaje-link"><img src="/img/personajes/pela.png" alt="Pela" class="img-personaje"><br><span class="nombre-personaje">Pela</span></a>
+    <a href="Personajes/qinque" class="personaje-link"><img src="/img/personajes/qingque.png" alt="Qingque" class="img-personaje"><br><span class="nombre-personaje">Qingque</span></a>
+    <a href="Personajes/sampo" class="personaje-link"><img src="/img/personajes/sampo.png" alt="Sampo" class="img-personaje"><br><span class="nombre-personaje">Sampo</span></a>
+    <a href="Personajes/seele" class="personaje-link"><img src="/img/personajes/seele.png" alt="Seele" class="img-personaje"><br><span class="nombre-personaje">Seele</span></a>
+    <a href="Personajes/serval" class="personaje-link"><img src="/img/personajes/serval.png" alt="Serval" class="img-personaje"><br><span class="nombre-personaje">Serval</span></a>
+    <a href="Personajes/sieteDeMarzo" class="personaje-link"><img src="/img/personajes/siete de marzo.png" alt="7 de Marzo" class="img-personaje"><br><span class="nombre-personaje">7 de Marzo</span></a>
+    <a href="Personajes/silverWolf" class="personaje-link"><img src="/img/personajes/silver wolf.png" alt="Silver Wolf" class="img-personaje"><br><span class="nombre-personaje">Silver Wolf</span></a>
+    <a href="Personajes/sushang" class="personaje-link"><img src="/img/personajes/sushang.png" alt="Sushang" class="img-personaje"><br><span class="nombre-personaje">Sushang</span></a>
+    <a href="Personajes/tingyun" class="personaje-link"><img src="/img/personajes/tingyun.png" alt="Tingyun" class="img-personaje"><br><span class="nombre-personaje">Tingyun</span></a>
+    <a href="Personajes/trazacaminos" class="personaje-link"><img src="/img/personajes/trazacaminos armonia.png" alt="Trazacaminos Armonia" class="img-personaje"><br><span class="nombre-personaje">Trazacaminos (Armonia)</span></a>
+    <a href="Personajes/welt" class="personaje-link"><img src="/img/personajes/welt.png" alt="Welt" class="img-personaje"><br><span class="nombre-personaje">Welt</span></a>
+    <a href="Personajes/yanqing" class="personaje-link"><img src="/img/personajes/yanqing.png" alt="Yanqing" class="img-personaje"><br><span class="nombre-personaje">Yanqing</span></a>
 </div>
 
 
