@@ -41,11 +41,15 @@ public class PersonajeRestController {
 
     @GetMapping("/api/personajes/buscar")
     public List<Map<String, String>> buscarPersonajes(
-            @RequestParam(required = false) String nombre,
-            @RequestParam(required = false) String id) {
-        return PERSONAJES.stream()
-            .filter(p -> (nombre == null || p.get("nombre").toLowerCase().contains(nombre.toLowerCase()))
-                      && (id == null || p.get("id").equals(id)))
-            .toList();
+        @RequestParam(required = false) String nombre,
+        @RequestParam(required = false) String id,
+        @RequestParam(required = false) String tipo,
+        @RequestParam(required = false) String afinidad) {
+    return PERSONAJES.stream()
+        .filter(p -> (nombre == null || p.get("nombre").toLowerCase().contains(nombre.toLowerCase())))
+        .filter(p -> (id == null || p.get("id").equals(id)))
+        .filter(p -> (tipo == null || tipo.isEmpty() || (p.containsKey("tipo") && p.get("tipo").equalsIgnoreCase(tipo))))
+        .filter(p -> (afinidad == null || afinidad.isEmpty() || (p.containsKey("afinidad") && p.get("afinidad").equalsIgnoreCase(afinidad))))
+        .toList();
     }
 }

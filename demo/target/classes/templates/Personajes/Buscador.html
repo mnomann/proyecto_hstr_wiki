@@ -9,45 +9,67 @@
 <body>
     <h2>Buscador de Personajes</h2>
 
-<input type="text" id="nombreInput" placeholder="Buscar por nombre">
-<select id="tipoInput">
-  <option value="">Tipo</option>
-  <option value="DPS">DPS</option>
-  <option value="Apoyo">Apoyo</option>
-  <option value="Defensa">Defensa</option>
-</select>
-<select id="afinidadInput">
-  <option value="">Afinidad</option>
-  <option value="Fuego">Fuego</option>
-  <option value="Hielo">Hielo</option>
-  <option value="Cuántico">Cuántico</option>
-</select>
-<button id="buscarBtn">Buscar</button>
+<div class="buscador-barra">
+  <input type="text" id="nombreInput" placeholder="Buscar por nombre">
+  <select id="tipoInput">
+    <option value="">Via</option>
+    <option value="DPS">Destrucción</option>
+    <option value="Apoyo">Nihilidad</option>
+    <option value="Defensa">Conservacion</option>
+    <option value="Curación">Abundancia</option>
+    <option value="Control">Erudición</option>
+    <option value="Soporte">Armonía</option>
+  </select>
+  <select id="afinidadInput">
+    <option value="">Elemento</option>
+    <option value="Fuego">Fuego</option>
+    <option value="Hielo">Hielo</option>
+    <option value="Cuántico">Cuántico</option>
+    <option value="Relámpago">Relámpago</option>
+    <option value="Físico">Físico</option>
+    <option value="Viento">Viento</option>
+    <option value="Imaginación">Imaginación</option>
+  </select>
+  <button id="buscarBtn">Buscar</button>
+</div>
 
 <script>
 document.getElementById('buscarBtn').addEventListener('click', function() {
     const nombre = document.getElementById('nombreInput').value.trim();
-    const id = ""; 
+    const tipo = document.getElementById('tipoInput').value;
+    const afinidad = document.getElementById('afinidadInput').value;
 
-    // Construir la URL de búsqueda
     let url = '/api/personajes/buscar?';
-    if (nombre) url += 'nombre=' + encodeURIComponent(nombre);
-    if (id) url += '&id=' + encodeURIComponent(id);
+    if (nombre) url += 'nombre=' + encodeURIComponent(nombre) + '&';
+    if (tipo) url += 'tipo=' + encodeURIComponent(tipo) + '&';
+    if (afinidad) url += 'afinidad=' + encodeURIComponent(afinidad);
 
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        if (data.length === 1) {
-          // Si hay un solo resultado, redirige directamente a la página del personaje
-          window.location.href = data[0].ruta;
-        } else if (data.length > 1) {
-          // Si hay varios resultados, puedes mostrar una lista o elegir el primero
-          window.location.href = data[0].ruta;
-        } else {
-          // Si no hay resultados, muestra mensaje
-          const galeria = document.getElementById('galeriaPersonajes');
+        const galeria = document.getElementById('galeriaPersonajes');
+        galeria.innerHTML = ""; // Limpiar resultados anteriores
+
+        if (data.length === 0) {
           galeria.innerHTML = "<p style='color:white'>No se encontraron personajes.</p>";
+          return;
         }
+
+        // Si solo hay uno y hay texto en el input de nombre, redirige
+        if (data.length === 1 && nombre) {
+          window.location.href = data[0].ruta;
+          return;
+        }
+
+        // Mostrar los personajes filtrados como botones/links
+        data.forEach(personaje => {
+          galeria.innerHTML += `
+            <a href="${personaje.ruta}" class="personaje-link">
+              <img src="/img/personajes/${personaje.nombre.toLowerCase().replace(/ /g, '_')}.png" alt="${personaje.nombre}" class="img-personaje"><br>
+              <span class="nombre-personaje">${personaje.nombre}</span>
+            </a>
+          `;
+        });
       });
 });
 </script>
@@ -165,6 +187,17 @@ input[type="text"]:focus, select:focus {
     cursor: pointer;
     box-shadow: 0 2px 8px #2224;
     transition: background 0.2s, color 0.2s;
+}
+
+.buscador-barra {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 24px auto 0 auto;
+    width: 100%;
+    max-width: 700px;
 }
 
 #buscarBtn:hover {
