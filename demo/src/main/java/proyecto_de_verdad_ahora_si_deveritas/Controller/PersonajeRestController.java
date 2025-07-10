@@ -59,32 +59,32 @@ public class PersonajeRestController {
      *           Para modificar personajes, se requiere actualizar el código fuente.
      */
     private static final List<Map<String, String>> PERSONAJES = List.of(
-        Map.of("id", "1", "nombre", "Arlan", "ruta", "/Personajes/arlan"),
-        Map.of("id", "2", "nombre", "Asta", "ruta", "/Personajes/asta"),
-        Map.of("id", "3", "nombre", "Bailu", "ruta", "/Personajes/bailu"),
-        Map.of("id", "4", "nombre", "Bronya", "ruta", "/Personajes/bronya"),
-        Map.of("id", "5", "nombre", "Clara", "ruta", "/Personajes/clara"),
-        Map.of("id", "6", "nombre", "Dan Heng", "ruta", "/Personajes/dangHeng"),
-        Map.of("id", "7", "nombre", "Gepard", "ruta", "/Personajes/gepard"),
-        Map.of("id", "8", "nombre", "Herta", "ruta", "/Personajes/Herta"),
-        Map.of("id", "9", "nombre", "Himeko", "ruta", "/Personajes/himeko"),
-        Map.of("id", "10", "nombre", "Hook", "ruta", "/Personajes/hook"),
-        Map.of("id", "11", "nombre", "Jing Yuan", "ruta", "/Personajes/jinYuan"),
-        Map.of("id", "12", "nombre", "Kafka", "ruta", "/Personajes/kafka"),
-        Map.of("id", "13", "nombre", "Luocha", "ruta", "/Personajes/luocha"),
-        Map.of("id", "14", "nombre", "Natasha", "ruta", "/Personajes/natasha"),
-        Map.of("id", "15", "nombre", "Pela", "ruta", "/Personajes/pela"),
-        Map.of("id", "16", "nombre", "Qingque", "ruta", "/Personajes/qinque"),
-        Map.of("id", "17", "nombre", "Sampo", "ruta", "/Personajes/sampo"),
-        Map.of("id", "18", "nombre", "Seele", "ruta", "/Personajes/seele"),
-        Map.of("id", "19", "nombre", "Serval", "ruta", "/Personajes/serval"),
-        Map.of("id", "20", "nombre", "7 de Marzo", "ruta", "/Personajes/sieteDeMarzo"),
-        Map.of("id", "21", "nombre", "Silver Wolf", "ruta", "/Personajes/silverWolf"),
-        Map.of("id", "22", "nombre", "Sushang", "ruta", "/Personajes/sushang"),
-        Map.of("id", "23", "nombre", "Tingyun", "ruta", "/Personajes/tingyun"),
-        Map.of("id", "24", "nombre", "Trazacaminos", "ruta", "/Personajes/trazacaminos"),
-        Map.of("id", "25", "nombre", "Welt", "ruta", "/Personajes/welt"),
-        Map.of("id", "26", "nombre", "Yanqing", "ruta", "/Personajes/yanqing")
+        Map.of("id", "1", "nombre", "Arlan", "ruta", "/Personajes/arlan", "tipo", "Destrucción", "afinidad", "Relámpago"),
+        Map.of("id", "2", "nombre", "Asta", "ruta", "/Personajes/asta", "tipo", "Armonía", "afinidad", "Fuego"),
+        Map.of("id", "3", "nombre", "Bailu", "ruta", "/Personajes/bailu", "tipo", "Abundancia", "afinidad", "Relámpago"),
+        Map.of("id", "4", "nombre", "Bronya", "ruta", "/Personajes/bronya", "tipo", "Armonía", "afinidad", "Viento"),
+        Map.of("id", "5", "nombre", "Clara", "ruta", "/Personajes/clara", "tipo", "Destrucción", "afinidad", "Físico"),
+        Map.of("id", "6", "nombre", "Dan Heng", "ruta", "/Personajes/dangHeng", "tipo", "Erudición", "afinidad", "Viento"),
+        Map.of("id", "7", "nombre", "Gepard", "ruta", "/Personajes/gepard", "tipo", "Conservación", "afinidad", "Hielo"),
+        Map.of("id", "8", "nombre", "Herta", "ruta", "/Personajes/Herta", "tipo", "Erudición", "afinidad", "Hielo"),
+        Map.of("id", "9", "nombre", "Himeko", "ruta", "/Personajes/himeko", "tipo", "Erudición", "afinidad", "Fuego"),
+        Map.of("id", "10", "nombre", "Hook", "ruta", "/Personajes/hook", "tipo", "Destrucción", "afinidad", "Fuego"),
+        Map.of("id", "11", "nombre", "Jing Yuan", "ruta", "/Personajes/jinYuan", "tipo", "Erudición", "afinidad", "Relámpago"),
+        Map.of("id", "12", "nombre", "Kafka", "ruta", "/Personajes/kafka", "tipo", "Nihilidad", "afinidad", "Relámpago"),
+        Map.of("id", "13", "nombre", "Luocha", "ruta", "/Personajes/luocha", "tipo", "Abundancia", "afinidad", "Imaginación"),
+        Map.of("id", "14", "nombre", "Natasha", "ruta", "/Personajes/natasha", "tipo", "Abundancia", "afinidad", "Físico"),
+        Map.of("id", "15", "nombre", "Pela", "ruta", "/Personajes/pela", "tipo", "Nihilidad", "afinidad", "Hielo"),
+        Map.of("id", "16", "nombre", "Qingque", "ruta", "/Personajes/qinque", "tipo", "Erudición", "afinidad", "Cuántico"),
+        Map.of("id", "17", "nombre", "Sampo", "ruta", "/Personajes/sampo", "tipo", "Nihilidad", "afinidad", "Viento"),
+        Map.of("id", "18", "nombre", "Seele", "ruta", "/Personajes/seele", "tipo", "Destrucción", "afinidad", "Cuántico"),
+        Map.of("id", "19", "nombre", "Serval", "ruta", "/Personajes/serval", "tipo", "Erudición", "afinidad", "Relámpago"),
+        Map.of("id", "20", "nombre", "7 de Marzo", "ruta", "/Personajes/sieteDeMarzo", "tipo", "Conservación", "afinidad", "Hielo"),
+        Map.of("id", "21", "nombre", "Silver Wolf", "ruta", "/Personajes/silverWolf", "tipo", "Nihilidad", "afinidad", "Cuántico"),
+        Map.of("id", "22", "nombre", "Sushang", "ruta", "/Personajes/sushang", "tipo", "Destrucción", "afinidad", "Físico"),
+        Map.of("id", "23", "nombre", "Tingyun", "ruta", "/Personajes/tingyun", "tipo", "Armonía", "afinidad", "Rayo"),
+        Map.of("id", "24", "nombre", "Trazacaminos", "ruta", "/Personajes/trazacaminos", "tipo", "Armonía", "afinidad", "Imaginación"),
+        Map.of("id", "25", "nombre", "Welt", "ruta", "/Personajes/welt", "tipo", "Nihilidad", "afinidad", "Imaginación"),
+        Map.of("id", "26", "nombre", "Yanqing", "ruta", "/Personajes/yanqing", "tipo", "Destrucción", "afinidad", "Hielo")
     );
 
     /**
@@ -135,7 +135,22 @@ public class PersonajeRestController {
     return PERSONAJES.stream()
         .filter(p -> (nombre == null || p.get("nombre").toLowerCase().contains(nombre.toLowerCase())))
         .filter(p -> (id == null || p.get("id").equals(id)))
-        .filter(p -> (tipo == null || tipo.isEmpty() || (p.containsKey("tipo") && p.get("tipo").equalsIgnoreCase(tipo))))
+        .filter(p -> {
+            if (tipo == null || tipo.isEmpty()) return true;
+            if (!p.containsKey("tipo")) return false;
+            // Permitir que el filtro acepte tanto el valor "Destrucción" como "DPS", etc.
+            String tipoPersonaje = p.get("tipo").toLowerCase();
+            String tipoFiltro = tipo.toLowerCase();
+            // Mapeo para aceptar equivalencias
+            if (tipoFiltro.equals("dps") && tipoPersonaje.equals("destrucción")) return true;
+            if (tipoFiltro.equals("defensa") && tipoPersonaje.equals("conservación")) return true;
+            if (tipoFiltro.equals("apoyo") && tipoPersonaje.equals("nihilidad")) return true;
+            if (tipoFiltro.equals("curación") && tipoPersonaje.equals("abundancia")) return true;
+            if (tipoFiltro.equals("control") && tipoPersonaje.equals("erudición")) return true;
+            if (tipoFiltro.equals("soporte") && tipoPersonaje.equals("armonía")) return true;
+            // También aceptar coincidencia directa
+            return tipoPersonaje.equalsIgnoreCase(tipo);
+        })
         .filter(p -> (afinidad == null || afinidad.isEmpty() || (p.containsKey("afinidad") && p.get("afinidad").equalsIgnoreCase(afinidad))))
         .toList();
     }

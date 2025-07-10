@@ -158,6 +158,9 @@
         <button id="buscarBtn">Buscar</button>
     </div>
 
+
+    <!-- Contenedor para los botones de personajes filtrados -->
+    <div id="botonesFiltrados" style="display:none; justify-content:center; flex-wrap:wrap; gap:10px; margin-bottom:20px;"></div>
     <div id="galeriaPersonajes"></div>
 
     <script>
@@ -216,6 +219,7 @@
 
             if (personajes.length === 0) {
                 galeria.innerHTML = "<p class='mensaje-info'>No se encontraron personajes.</p>";
+                document.getElementById('botonesFiltrados').style.display = 'none';
                 return;
             }
 
@@ -232,6 +236,26 @@
                 `;
                 galeria.appendChild(personajeElement);
             });
+        }
+
+        // Función para mostrar los botones de personajes filtrados
+        function mostrarBotonesFiltrados(personajes) {
+            const contenedor = document.getElementById('botonesFiltrados');
+            contenedor.innerHTML = "";
+            if (personajes.length === 0) {
+                contenedor.style.display = 'none';
+                return;
+            }
+            personajes.forEach(personaje => {
+                const btn = document.createElement('button');
+                btn.textContent = personaje.nombre;
+                btn.style = 'margin:5px; padding:8px 16px; border-radius:6px; border:none; background:#ffe066; color:#23284a; font-weight:bold; cursor:pointer; box-shadow:0 2px 8px #2224;';
+                btn.onclick = function() {
+                    window.location.href = personaje.ruta || obtenerRutaPersonaje(personaje.nombre);
+                };
+                contenedor.appendChild(btn);
+            });
+            contenedor.style.display = 'flex';
         }
 
         // Función para cargar todos los personajes al inicio
@@ -284,11 +308,19 @@
 
                     // Mostrar los personajes filtrados
                     mostrarPersonajes(data);
+
+                    // Mostrar botones solo si hay filtro de tipo o afinidad (sin nombre)
+                    if ((tipo || afinidad) && !nombre && data.length > 0) {
+                        mostrarBotonesFiltrados(data);
+                    } else {
+                        document.getElementById('botonesFiltrados').style.display = 'none';
+                    }
                 })
                 .catch(error => {
                     console.error('Error en la búsqueda:', error);
                     const galeria = document.getElementById('galeriaPersonajes');
                     galeria.innerHTML = "<p class='mensaje-error'>Error en la búsqueda. Intente nuevamente.</p>";
+                    document.getElementById('botonesFiltrados').style.display = 'none';
                 });
         });
 
