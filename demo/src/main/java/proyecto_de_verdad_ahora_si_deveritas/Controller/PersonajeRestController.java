@@ -78,7 +78,7 @@ public class PersonajeRestController {
         Map.of("id", "17", "nombre", "Sampo", "ruta", "/Personajes/sampo"),
         Map.of("id", "18", "nombre", "Seele", "ruta", "/Personajes/seele"),
         Map.of("id", "19", "nombre", "Serval", "ruta", "/Personajes/serval"),
-        Map.of("id", "20", "nombre", "7 de Marzo", "ruta", "/Personajes/7deMarzo"),
+        Map.of("id", "20", "nombre", "7 de Marzo", "ruta", "/Personajes/sieteDeMarzo"),
         Map.of("id", "21", "nombre", "Silver Wolf", "ruta", "/Personajes/silverWolf"),
         Map.of("id", "22", "nombre", "Sushang", "ruta", "/Personajes/sushang"),
         Map.of("id", "23", "nombre", "Tingyun", "ruta", "/Personajes/tingyun"),
