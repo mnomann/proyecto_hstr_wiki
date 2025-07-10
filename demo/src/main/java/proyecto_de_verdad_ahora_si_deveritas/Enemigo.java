@@ -1,11 +1,18 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * La clase {@code Enemigo} representa una entidad enemiga con atributos como
@@ -17,7 +24,6 @@ import java.util.function.Function;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Enemigo implements Registro {
 
     @Id
