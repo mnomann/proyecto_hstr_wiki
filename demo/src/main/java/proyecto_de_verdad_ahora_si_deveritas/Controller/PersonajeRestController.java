@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
  * }
  * </pre>
  * 
- * @author [Tu nombre]
  * @version 1.0
  * @since 2025-07-09
  * @see Map
