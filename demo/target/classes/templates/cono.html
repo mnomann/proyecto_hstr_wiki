@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡A Bailar! - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0f1c 0%, #1a223f 25%, #2e3359 75%, #3f4b7a 100%),
+                  url('/static/img/fondos/first-official-honkai-star-rail-live-wallpaper-released.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenedor {
+      background: linear-gradient(135deg, #1a223f 0%, #2e3359 100%);
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(30, 40, 90, 0.45);
+      padding: 32px 40px;
+      max-width: 480px;
+      margin: 48px auto;
+      color: #e0e6f6;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      border: 2px solid #6ad1e3;
+      position: relative;
+    }
+
+    .contenedor button {
+      background: linear-gradient(90deg, #6ad1e3 0%, #b8aaff 100%);
+      color: #1a223f;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 18px;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(106, 209, 227, 0.15);
+    }
+
+    .contenedor button:hover {
+      background: linear-gradient(90deg, #b8aaff 0%, #6ad1e3 100%);
+    }
+
+    .contenedor h1 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      color: #6ad1e3;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #1a223f88;
+    }
+    
+    .contenedor img {
+      display: block;
+      margin: 0 auto 20px auto;
+      border-radius: 12px;
+      border: 3px solid #b8aaff;
+      background: #232b4d;
+      box-shadow: 0 4px 16px #0006;
+    }
+    
+    .contenedor p {
+      font-size: 1.08rem;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    
+    .contenedor strong {
+      color: #b8aaff;
+    }
+    
+    @media (max-width: 600px) {
+      .contenedor {
+        padding: 18px 8px;
+        max-width: 98vw;
+      }
+      .contenedor img {
+        width: 90vw;
+        max-width: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">¡A Bailar!</h1>
+    <img id="imagen-cono" src="/img/conos/¡a bailar!.png" alt="¡A Bailar!" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta la velocidad del portador en un 10~18%. Al iniciar el combate, obtiene un aumento de ATQ del 20~40% durante 2 turnos.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Algo Insustituible - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">Algo Insustituible</h1>
+    <img id="imagen-cono" src="/img/conos/algo insustituible.png" alt="Algo Insustituible" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta el ATQ del portador en un 20~40%. Cuando el portador derrota a un enemigo o recibe daño, recupera vida equivalente al 6~12% de su ATQ y aumenta el daño infligido en un 20~40% hasta el final de su siguiente turno.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Antes del Amanecer - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">Antes del Amanecer</h1>
+    <img id="imagen-cono" src="/img/conos/antes del amanecer.png" alt="Antes del Amanecer" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta el daño crítico del portador en un 36~60% y el daño de habilidad definitiva y talento en un 18~30%. Después de usar la habilidad definitiva, el siguiente talento activado inflige un 48~80% más de daño.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>El Nacimiento del Yo - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">El Nacimiento del Yo</h1>
+    <img id="imagen-cono" src="/img/conos/el nacimiento del yo.png" alt="El Nacimiento del Yo" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta el daño de la habilidad definitiva en un 24~48%. Al usar la habilidad definitiva, el portador obtiene un escudo equivalente al 15~30% de su vida máxima durante 2 turnos.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>El Tiempo No Espera - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">El Tiempo No Espera</h1>
+    <img id="imagen-cono" src="/img/conos/el tiempo no espera.png" alt="El Tiempo No Espera" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta la vida máxima y la curación realizada por el portador en un 12~24%. Cuando el portador cura a un aliado, inflige daño adicional a un enemigo aleatorio igual al 50~100% de la curación realizada.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>En la Noche - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">En la Noche</h1>
+    <img id="imagen-cono" src="/img/conos/en la noche.png" alt="En la Noche" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta la probabilidad de crítico del portador en un 18~36%. Cuando el portador ataca a un enemigo con menos del 50% de vida, el daño aumenta un 24~48%.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>En Nombre del Mundo - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">En Nombre del Mundo</h1>
+    <img id="imagen-cono" src="/img/conos/en nombre del mundo.png" alt="En Nombre del Mundo" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta el ATQ del portador en un 16~32%. Cuando el portador inflige un efecto negativo, su daño aumenta un 24~48% durante 2 turnos.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La Batalla No Ha Terminado - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">La Batalla No Ha Terminado</h1>
+    <img id="imagen-cono" src="/img/conos/la batalla no ha terminado.png" alt="La Batalla No Ha Terminado" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta la recuperación de energía del portador en un 10~18% y regenera 1 punto de habilidad al usar la habilidad definitiva en un aliado. Este efecto solo puede activarse una vez por cada dos turnos. Cuando el portador utiliza su habilidad, el siguiente aliado que actúe inflige un 30~50% más de daño durante un turno.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Noche en la Vía Láctea - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">Noche en la Vía Láctea</h1>
+    <img id="imagen-cono" src="/img/conos/noche en la via lactea.png" alt="Noche en la Vía Láctea" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Por cada enemigo en el campo, el ATQ del portador aumenta un 9~15%, hasta 5 acumulaciones. Cuando un enemigo es debilitado por Ruptura de Debilidad, el daño del portador aumenta un 30~50% durante 1 turno.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Solo Hay Que Esperar - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">Solo Hay Que Esperar</h1>
+    <img id="imagen-cono" src="/img/conos/solo hay que esperar.png" alt="Solo Hay Que Esperar" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta la defensa del portador en un 20~40%. Cuando el portador recibe daño, recupera un 8~16% de su vida máxima.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Visión de Presa - Cono de Luz</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <button onclick="window.history.back()">⬅ Volver</button>
+    <h1 id="nombre-cono">Visión de Presa</h1>
+    <img id="imagen-cono" src="/img/conos/visión de presa.png" alt="Visión de Presa" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-cono">
+      Aumenta la probabilidad de crítico del portador en un 12~24%. Cuando el portador inflige un golpe crítico, su velocidad aumenta un 10~20% durante 1 turno.
+    </p>
+  </div>
+</body>
+</html>

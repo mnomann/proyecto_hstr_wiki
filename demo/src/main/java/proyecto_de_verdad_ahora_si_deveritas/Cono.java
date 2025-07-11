@@ -1,7 +1,15 @@
 package proyecto_de_verdad_ahora_si_deveritas;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * La clase {@code Cono} representa un objeto con atributos identificadores, nombre, rareza y nivel.
@@ -36,6 +44,7 @@ public class Cono implements Registro {
      * @param c Nombre del atributo (puede ser "id", "nombre", "rareza" o "nivel")
      * @return El valor correspondiente del atributo, o {@code null} si no existe
      */
+    @Override
     public Object getValue(String c) {
         return switch (c) {
             case "id" -> id;
@@ -53,6 +62,7 @@ public class Cono implements Registro {
      * @param c Nombre del atributo a modificar ("nombre", "rareza" o "nivel")
      * @param v Valor a establecer
      */
+    @Override
     public void setValue(String c, Object v) {
         switch (c) {
             case "nombre" -> nombre = v.toString();

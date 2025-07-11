@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Iniciar Sesión</h2>
+<form id="loginForm">
+  <input type="text" placeholder="Usuario" name="username" required />
+  <input type="password" placeholder="Contraseña" name="password" required />
+  <button type="submit">Login</button>
+</form>
+<p id="loginMsg"></p>
+<script src="js/login.js"></script>
+
+</body>
+</html>
+
+<style>
+body {
+    background: linear-gradient(135deg, #1a2236 0%, #3a3f5a 100%);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #e0e6f6;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h2 {
+    font-family: 'Orbitron', 'Segoe UI', Arial, sans-serif;
+    letter-spacing: 2px;
+    color: #ffe066;
+    text-shadow: 0 2px 8px #2e2e4d;
+    margin-bottom: 24px;
+}
+
+form#loginForm {
+    background: rgba(34, 40, 60, 0.95);
+    border: 2px solid #ffe066;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 320px;
+}
+
+form#loginForm input[type="text"],
+form#loginForm input[type="password"] {
+    background: #232849;
+    border: 1px solid #ffe066;
+    border-radius: 8px;
+    padding: 12px;
+    color: #e0e6f6;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+form#loginForm input[type="text"]:focus,
+form#loginForm input[type="password"]:focus {
+    border: 2px solid #7ecfff;
+    background: #2c315a;
+}
+
+form#loginForm button {
+    background: linear-gradient(90deg, #ffe066 0%, #7ecfff 100%);
+    color: #232849;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 0;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px #23284955;
+    transition: background 0.2s, color 0.2s;
+}
+
+form#loginForm button:hover {
+    background: linear-gradient(90deg, #7ecfff 0%, #ffe066 100%);
+    color: #1a2236;
+}
+
+#loginMsg {
+    margin-top: 18px;
+    min-height: 24px;
+    color: #ff7e7e;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px 4px #23284988;
+}
+
+/* Optional: Add a subtle star background effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background: url('https://svgshare.com/i/13bF.svg') repeat;
+    opacity: 0.12;
+    z-index: 0;
+}
+</style>
+
+<script>
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: form.username.value,
+      password: form.password.value
+    })
+  });
+  const data = await res.json();
+  document.getElementById('loginMsg').innerText = data.message;
+
+  if (res.ok) {
+    localStorage.setItem('rol', data.rol);
+    localStorage.setItem('username', form.username.value);
+    window.location.href = 'index.html'; // redirigir al home
+  }
+});
+
+
+
+</script>

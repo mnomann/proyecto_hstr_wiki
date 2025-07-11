@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0f1c 0%, #1a223f 25%, #2e3359 75%, #3f4b7a 100%),
+                  url('/static/img/fondos/first-official-honkai-star-rail-live-wallpaper-released.png') no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .contenedor {
+      background: linear-gradient(135deg, #1a223f 0%, #2e3359 100%);
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(30, 40, 90, 0.45);
+      padding: 32px 40px;
+      max-width: 480px;
+      margin: 48px auto;
+      color: #e0e6f6;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      border: 2px solid #6ad1e3;
+      position: relative;
+    }
+    .btn-volver-general {
+      display: block;
+      margin: 32px auto 24px auto;
+      background: linear-gradient(90deg, #6ad1e3 0%, #b8aaff 100%);
+      color: #1a223f;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(106, 209, 227, 0.15);
+    }
+    .btn-volver-general:hover {
+      background: linear-gradient(90deg, #b8aaff 0%, #6ad1e3 100%);
+    }
+    .contenedor h1 {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      color: #6ad1e3;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #1a223f88;
+    }
+    
+    .contenedor img {
+      display: block;
+      margin: 0 auto 20px auto;
+      border-radius: 12px;
+      border: 3px solid #b8aaff;
+      background: #232b4d;
+      box-shadow: 0 4px 16px #0006;
+    }
+    
+    .contenedor p {
+      font-size: 1.08rem;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    
+    .contenedor strong {
+      color: #b8aaff;
+    }
+    
+    @media (max-width: 600px) {
+      .contenedor {
+        padding: 18px 8px;
+        max-width: 98vw;
+      }
+      .contenedor img {
+        width: 90vw;
+        max-width: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="btn-volver-general" onclick="window.history.back()">⬅ Volver</button>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Barion</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/barion.png" alt="Barion" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un autómata de combate avanzado que patrulla zonas industriales. Su armadura es resistente y puede lanzar ataques de energía a distancia.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Chanchito de la Destrucción</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/chanchito de la destrucción.png" alt="Chanchito de la Destrucción" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Una criatura pequeña pero explosiva, famosa por autodestruirse al acercarse a sus enemigos. Es común encontrarlo en zonas inestables del Fragmentum.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Creavendavales</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/creavendavales.png" alt="Creavendavales" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un enemigo que manipula el viento para atacar y defenderse. Puede invocar ráfagas que empujan a los oponentes y protegerse con barreras de aire.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Escarabajo Autómata</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/escarabajo automata.png" alt="Escarabajo Autómata" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un pequeño robot con forma de escarabajo, utilizado para exploración y sabotaje. Puede autodestruirse para dañar a sus enemigos.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Huargo Autómata</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/huargo automata.png" alt="Huargo Autómata" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un lobo mecánico diseñado para rastrear y atacar intrusos. Es rápido, ágil y puede coordinar ataques en manada con otros huargos.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Soldado Poseído por Mara</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/soldado poseido por mara.png" alt="Soldado Poseído por Mara" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un soldado corrompido por la energía de Mara. Ataca sin piedad y es capaz de resistir grandes cantidades de daño antes de caer.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Svarog</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/svarog.png" alt="Svarog" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un gigantesco robot con inteligencia propia. Svarog protege su territorio y utiliza potentes ataques mecánicos y de fuego para eliminar amenazas.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Tejedora Imaginaria</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/tejedora imaginaria.png" alt="Tejedora Imaginaria" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un ser etéreo capaz de manipular ilusiones y confundir a sus enemigos. Sus ataques pueden alterar la percepción y desorientar a los oponentes.
+    </p>
+  </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle del Enemigo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="nombre-enemigo">Teniente Crinargenta</h1>
+    <img id="imagen-enemigo" src="/img/enemigos/teniente crinargenta.png" alt="Teniente Crinargenta" width="300">
+    <p><strong>Descripción:</strong></p>
+    <p id="descripcion-enemigo">
+      Un comandante de élite con gran destreza en combate cuerpo a cuerpo. Lidera a sus tropas con disciplina y es temido por su fuerza y estrategia.
+    </p>
+  </div>
+</body>
